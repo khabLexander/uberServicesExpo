@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { stylesCuenta } from '../../themes/CuentaStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { stylesCuenta } from '@style/CuentaStyles';
+// import { stylesCuenta } from '../../themes/CuentaStyles';
 import { ScrollView } from 'react-native-gesture-handler';
-import { styles } from '../../themes/BottomTabStyles';
+// import { styles } from '../../themes/BottomTabStyles';
 import { useNavigation } from '@react-navigation/native';
 
 export const C19SeguridadScreen = () => {

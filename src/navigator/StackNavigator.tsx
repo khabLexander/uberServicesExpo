@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { BottomTabs } from './BottomTabs';
-import { LoginScreen } from '../screens/Login/LoginScreen';
+import { Register } from '@component/Login/Register';
+import { Login } from '@component/Login/Login';
 import { C19SeguridadScreen } from '../screens/CuentaScreens/C19SeguridadScreen';
 import { MetodoPagoScreen } from '../screens/CuentaScreens/MetodoPagoScreen';
 import { EfectivoScreen } from '../screens/CuentaScreens/EfectivoScreen';
@@ -17,13 +18,14 @@ const Stack = createStackNavigator();
 export const StackNavigator = () => {
 
     return (
-     <Stack.Navigator
-        initialRouteName="LoginScreen"
+    <Stack.Navigator
+        initialRouteName="Register"
         screenOptions={{
             headerShown:false,
         }}
-     >
-        <Stack.Screen name="LoginScreen"  options={{title:"Login"}} component={LoginScreen}/>
+    >
+        <Stack.Screen name="Register"  options={{title:"Login"}} component={Register}/>
+        <Stack.Screen name="Login"  options={{title:"Login"}} component={Login}/>
         <Stack.Screen name="BottomTabs"   component={BottomTabs}/>
         {/* Derivados de Cuenta Screen */}
         <Stack.Screen name="C19SeguridadScreen" component={C19SeguridadScreen} />
@@ -36,7 +38,7 @@ export const StackNavigator = () => {
         <Stack.Screen name="CardInicio" component={CardInicio} />
         <Stack.Screen name="NeogicioDetailsScreen" component={NeogicioDetailsScreen} />
         
-     </Stack.Navigator>
+    </Stack.Navigator>
 
     )
 }
