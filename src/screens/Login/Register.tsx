@@ -6,9 +6,8 @@ import {
   TextInput,
   ScrollView,
   Text,
-  ToastAndroid, TouchableOpacity
+  ToastAndroid
 } from "react-native";
-import { stylesLogin } from '@style/LoginStyles';
 
 export const Register = (props:any) => {
     const datosUsuario = {
@@ -29,26 +28,20 @@ export const Register = (props:any) => {
     };
     
     const saveNewUser = async () => {
-      return props.navigation.navigate("Login")
-    if (user.name === "" || user.email === "") {
+      if (user.name === "" || user.email === "") {
         alert("El nombre y el email son obligatorios.");
     } else {
       try {
-        // await firebase.db.collection("users").add({
-        // name: user.name,
-        // email: user.email,
-        // phone: user.phone,
-        // });
-        ToastAndroid.showWithGravityAndOffset(
-        "Usuario creado correctamente",
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-        25,
-        1350)
-        setState(datosUsuario)
-        setBto(true)
-        // props.navigation.navigate("UsersList");
-        } catch (error) {
+          ToastAndroid.showWithGravityAndOffset(
+            "Usuario creado correctamente",
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+            25,
+            1350)
+            setState(datosUsuario)
+            setBto(true)
+            props.navigation.navigate("Login")
+          } catch (error) {
             console.log(error)
         }
       }
@@ -107,22 +100,8 @@ export const Register = (props:any) => {
         <Button title="Registrarse" onPress={() => saveNewUser()} />
       </View>
       { bto === true ? <View style={styles.footer}>
-        <Button title="Ir al inicio" onPress={() => props.navigation.navigate("Inicio")} />
+        <Button title="Loguearse" onPress={() => props.navigation.navigate("Login")} />
       </View> : <Text></Text> }
-      <View>
-          <Text>Login AQUI TRABAJA HENRY</Text>
-          <TouchableOpacity
-                  style={{
-                      ...stylesLogin.botonGrande,
-                      backgroundColor:'#ffffff'
-                      }}
-                  onPress={()=> props.navigation.navigate('BottomTabs')}
-              >
-              <Text style={stylesLogin.botonGrandeTexto}> INICIAR SESIÓN </Text>
-          </TouchableOpacity>
-          
-
-      </View>
     </ScrollView>
     )
 }

@@ -1,15 +1,12 @@
 import React, { useState } from "react";
+import { MaterialIcons, Ionicons  } from '@expo/vector-icons'; 
+import { SocialIcon, Input, Button } from 'react-native-elements';
 import {
   View,
   StyleSheet,
-  TextInput,
   ScrollView,
   Text,
-  ToastAndroid, TouchableOpacity
 } from "react-native";
-import { SocialIcon, Input, Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { MaterialIcons, Ionicons  } from '@expo/vector-icons'; 
 
 export const Login = (props:any) => {
     const datosUsuario = {
@@ -22,25 +19,11 @@ export const Login = (props:any) => {
 
     const handleChangeText = (value: string, name: string) => {
       setState({ ...user, [name]: value });
-      console.log(user)
     };
     
     const saveNewUser = async () => {
       try {
-        // await firebase.db.collection("users").add({
-        // name: user.name,
-        // email: user.email,
-        // phone: user.phone,
-        // });
-        ToastAndroid.showWithGravityAndOffset(
-        "Usuario creado correctamente",
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-        25,
-        1350)
-        setState(datosUsuario)
-        setBto(true)
-        // props.navigation.navigate("UsersList");
+        props.navigation.navigate("BottomTabs");
         } catch (error) {
             console.log(error)
         }
@@ -98,9 +81,6 @@ export const Login = (props:any) => {
           style={styles.btn}
         />
       </View>
-      { bto === true ? <View style={styles.footer}>
-        <Button title="Ir al inicio" onPress={() => props.navigation.navigate("Inicio")} />
-      </View> : <Text></Text> }
     </ScrollView>
     )
 }
