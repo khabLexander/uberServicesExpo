@@ -1,59 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
-const localesMock = [
+const menuMock = [
     {
         nombre: 'AASDASD',
-        telefono: '3323243',
         categoria: 'SADFSDF',
-        id: 'ASDF'
+        precio: 12,
+        id: 'ASDF',
+        descripcion: 'Hamburguesa de queso'
     },
     {
         nombre: 'FGHFGH',
-        telefono: '6767',
         categoria: 'GHGH',
-        id: '4334SD'
+        id: '4334SD',
+        precio: 12,
+        descripcion: 'Hamburguesa de queso'
     },
     {
         nombre: 'SDFSFRE',
-        telefono: '776767',
+        precio: 12,
         categoria: 'DFGDFGY6',
-        id: '435GGGT45'
+        id: '435GGGT45',
+        descripcion: 'Hamburguesa de queso'
     },
     {
         nombre: 'AASDASD',
-        telefono: '3323243',
+        precio: 12,
         categoria: 'SADFSDF',
-        id: '332ASDF'
+        id: '332ASDF',
+        descripcion: 'Hamburguesa de queso'
     },
     {
         nombre: 'FGHFGH',
-        telefono: '6767',
+        precio: 12,
         categoria: 'GHGH',
-        id: '43323234SD'
+        id: '43323234SD',
+        descripcion: 'Hamburguesa de queso'
     },
     {
         nombre: 'SDFSFRE',
-        telefono: '776767',
+        precio: 12,
         categoria: 'DFGDFGY6',
-        id: '435GGGT233245'
+        id: '435GGGT233245',
+        descripcion: 'Hamburguesa de queso'
     }
 ];
-const ExplorarScreen = (props:any) => {
-    const [locales, setLocales] = useState(localesMock);
-    console.log(props.route.params)
+export default (props) => {
+    const { local } = props.route.params;
+    const [menu, setMenu] = useState([])
+    useEffect(() => {
+        console.log(local)
+        setMenu(menuMock)
+
+    }, [])
     return (
+
         <View style={styles.container}>
             <ScrollView>
-                {locales.map((local) => {
+                {menu.map((item) => {
                     return (
                         <ListItem
-                            key={local.id}
+                            key={item.id}
                             bottomDivider
                             onPress={() => {
-                                console.log(local)
-                                props.navigation.navigate('Comida', { local })
+                                console.log(item)
+                                props.navigation.navigate('Detalles', { item })
                             }}
                         >
                             <ListItem.Chevron />
@@ -65,8 +77,8 @@ const ExplorarScreen = (props:any) => {
                                 rounded
                             />
                             <ListItem.Content>
-                                <ListItem.Title>{local.nombre}</ListItem.Title>
-                                <ListItem.Subtitle>{local.telefono}</ListItem.Subtitle>
+                                <ListItem.Title>{item.nombre}</ListItem.Title>
+                                <ListItem.Subtitle>{item.precio}</ListItem.Subtitle>
                             </ListItem.Content>
                         </ListItem>
                     );
@@ -74,9 +86,11 @@ const ExplorarScreen = (props:any) => {
 
             </ScrollView>
         </View>
+
+
     );
 };
-export default ExplorarScreen;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

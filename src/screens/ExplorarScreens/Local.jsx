@@ -40,7 +40,7 @@ const localesMock = [
         id: '435GGGT233245'
     }
 ];
-const ExplorarScreen = (props:any) => {
+const Local = (props) => {
     const [locales, setLocales] = useState(localesMock);
     console.log(props.route.params)
     return (
@@ -76,7 +76,7 @@ const ExplorarScreen = (props:any) => {
         </View>
     );
 };
-export default ExplorarScreen;
+export default Local;
 const styles = StyleSheet.create({
     container: {
         flex: 1,

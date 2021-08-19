@@ -10,6 +10,9 @@ import { TarjetaScreen } from '../screens/CuentaScreens/TarjetaScreen';
 import { AgregarCuponScreen } from '../screens/CuentaScreens/AgregarCuponScreen';
 import NeogicioDetailsScreen from '../screens/InicioScreens/NegocioDetailsScreen';
 import CardInicio from '../screens/InicioScreens/CardInicio';
+import Detalles from '../screens/ExplorarScreens/Detalles';
+import Comida from '../screens/ExplorarScreens/Comida';
+import ExplorarScreen from '../screens/ExplorarScreens/ExplorarScreen';
 
 
 const Stack = createStackNavigator();
@@ -35,7 +38,10 @@ export const StackNavigator = () => {
         {/*Derivados de Inicio*/}
         <Stack.Screen name="CardInicio" component={CardInicio} />
         <Stack.Screen name="NeogicioDetailsScreen" component={NeogicioDetailsScreen} />
-        
+         {/*Derivados de EXplorar*/}
+              <Stack.Screen name="Explorar" component={ExplorarScreen} />
+         <Stack.Screen name="Comida" component={Comida} />
+         <Stack.Screen name="Detalles" component={Detalles} />
      </Stack.Navigator>
 
     )
