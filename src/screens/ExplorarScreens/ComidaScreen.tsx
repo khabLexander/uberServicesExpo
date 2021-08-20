@@ -46,9 +46,9 @@ const menuMock = [
         descripcion: 'Hamburguesa de queso'
     }
 ];
-export default (props) => {
+export default (props:any) => {
     const { local } = props.route.params;
-    const [menu, setMenu] = useState([])
+    const [menu, setMenu] = useState<{}[]>([])
     useEffect(() => {
         console.log(local)
         setMenu(menuMock)
@@ -58,7 +58,7 @@ export default (props) => {
 
         <View style={styles.container}>
             <ScrollView>
-                {menu.map((item) => {
+                {menu.map((item:any) => {
                     return (
                         <ListItem
                             key={item.id}

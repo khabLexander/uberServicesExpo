@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, TextInput, StyleSheet, Button, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-export default props => {
-    const [item, setItem] = useState({})
+export default function DetallesScreen(props: any) {
+    const [item, setItem] = useState<any>({})
     const [total, setTotal] = useState(0);
-    const [cantidad, setCantidad] = useState(1);
+    const [cantidad, setCantidad] = useState<number>(1);
     useEffect(() => {
         calcularTotal();
     }, [cantidad]);
@@ -25,12 +25,11 @@ export default props => {
         const nuevoTotal = item.precio * cantidad;
         setTotal(nuevoTotal);
     };
-    const handleChange = e => {
+    const handleChange = (e: number) => {
         if (e < 1) {
             setCantidad(1);
-        } else {
-            setCantidad(e);
         }
+        setCantidad(e);
     };
     return (
         < View style={styles.container} >
@@ -40,7 +39,7 @@ export default props => {
                     <Text>Detalles</Text>
                     <Text>{item.nombre}</Text>
                     <Text>{item.descripcion}</Text>
-                    <Text note>{item.categoria}</Text>
+                    <Text>{item.categoria}</Text>
                     <Text> $ {item.precio}</Text>
                     <Text>{total}</Text>
                 </View>
@@ -54,7 +53,7 @@ export default props => {
                             // };
 
                             // postOrden(orden);
-                            props.navigation.navigate("Local",{item,cantidad,total});
+                            props.navigation.navigate("LocalScreen", { item, cantidad, total });
                         }}
                         title='Ordenar'
                     />
@@ -69,7 +68,6 @@ export default props => {
                         onChangeText={handleChange}
                     />
                     <Button onPress={sumar} title='+' />
-
                 </View>
             </ScrollView>
         </View >

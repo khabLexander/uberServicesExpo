@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
@@ -40,19 +40,22 @@ const localesMock = [
         id: '435GGGT233245'
     }
 ];
-const Local = (props) => {
-    const [locales, setLocales] = useState(localesMock);
-    console.log(props.route.params)
+export default function LocalScreen (props:any) {
+    const [category, setCategory] = useState<{}>({})
+    const [locales, setLocales] = useState<{}[]>([]);
+    useEffect(() => {
+        setCategory(props.selectedCategory)
+        setLocales(localesMock)
+    }, [])
     return (
         <View style={styles.container}>
             <ScrollView>
-                {locales.map((local) => {
+                {locales.map((local:any) => {
                     return (
                         <ListItem
                             key={local.id}
                             bottomDivider
                             onPress={() => {
-                                console.log(local)
                                 props.navigation.navigate('Comida', { local })
                             }}
                         >
@@ -76,7 +79,6 @@ const Local = (props) => {
         </View>
     );
 };
-export default Local;
 const styles = StyleSheet.create({
     container: {
         flex: 1,

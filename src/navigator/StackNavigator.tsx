@@ -10,9 +10,9 @@ import { TarjetaScreen } from '../screens/CuentaScreens/TarjetaScreen';
 import { AgregarCuponScreen } from '../screens/CuentaScreens/AgregarCuponScreen';
 import NeogicioDetailsScreen from '../screens/InicioScreens/NegocioDetailsScreen';
 import CardInicio from '../screens/InicioScreens/CardInicio';
-import Detalles from '../screens/ExplorarScreens/Detalles';
-import Comida from '../screens/ExplorarScreens/Comida';
-import ExplorarScreen from '../screens/ExplorarScreens/ExplorarScreen';
+import DetallesScreen from '../screens/ExplorarScreens/DetallesScreen';
+import ComidaScreen from '../screens/ExplorarScreens/ComidaScreen';
+import LocalScreen from '../screens/ExplorarScreens/LocalScreen'
 
 
 const Stack = createStackNavigator();
@@ -20,29 +20,29 @@ const Stack = createStackNavigator();
 export const StackNavigator = () => {
 
     return (
-     <Stack.Navigator
-        initialRouteName="LoginScreen"
-        screenOptions={{
-            headerShown:false,
-        }}
-     >
-        <Stack.Screen name="LoginScreen"  options={{title:"Login"}} component={LoginScreen}/>
-        <Stack.Screen name="BottomTabs"   component={BottomTabs}/>
-        {/* Derivados de Cuenta Screen */}
-        <Stack.Screen name="C19SeguridadScreen" component={C19SeguridadScreen} />
-        <Stack.Screen name="MetodoPagoScreen" component={MetodoPagoScreen} />
-        <Stack.Screen name="EfectivoScreen" component={EfectivoScreen} />
-        <Stack.Screen name="CuponesScreen" component={CuponesScreen} />
-        <Stack.Screen name="TarjetaScreen" component={TarjetaScreen} />
-        <Stack.Screen name="AgregarCuponScreen" component={AgregarCuponScreen} />
-        {/*Derivados de Inicio*/}
-        <Stack.Screen name="CardInicio" component={CardInicio} />
-        <Stack.Screen name="NeogicioDetailsScreen" component={NeogicioDetailsScreen} />
-         {/*Derivados de EXplorar*/}
-              <Stack.Screen name="Explorar" component={ExplorarScreen} />
-         <Stack.Screen name="Comida" component={Comida} />
-         <Stack.Screen name="Detalles" component={Detalles} />
-     </Stack.Navigator>
+        <Stack.Navigator
+            initialRouteName="LoginScreen"
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
+            <Stack.Screen name="LoginScreen" options={{ title: "Login" }} component={LoginScreen} />
+            <Stack.Screen name="BottomTabs" component={BottomTabs} />
+            {/* Derivados de Cuenta Screen */}
+            <Stack.Screen name="C19SeguridadScreen" component={C19SeguridadScreen} />
+            <Stack.Screen name="MetodoPagoScreen" component={MetodoPagoScreen} />
+            <Stack.Screen name="EfectivoScreen" component={EfectivoScreen} />
+            <Stack.Screen name="CuponesScreen" component={CuponesScreen} />
+            <Stack.Screen name="TarjetaScreen" component={TarjetaScreen} />
+            <Stack.Screen name="AgregarCuponScreen" component={AgregarCuponScreen} />
+            {/*Derivados de Inicio*/}
+            <Stack.Screen name="CardInicio" component={CardInicio} />
+            <Stack.Screen name="NeogicioDetailsScreen" component={NeogicioDetailsScreen} />
+            {/*Derivados de EXplorar*/}
+            <Stack.Screen name="LocalScreen" component={LocalScreen} />
+            <Stack.Screen name="ComidaScreen" component={ComidaScreen} />
+            <Stack.Screen name="DetallesScreen" component={DetallesScreen} />
+        </Stack.Navigator>
 
     )
 }
