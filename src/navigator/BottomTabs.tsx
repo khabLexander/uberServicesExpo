@@ -7,8 +7,8 @@ import { colores } from "../themes/BottomTabStyles";
 import { InicioScreen } from "../screens/InicioScreens/InicioScreen";
 import { PedidosScreen } from "../screens/PedidosScreens/PedidosScreen";
 import { CuentaScreen } from "../screens/CuentaScreens/CuentaScreen";
-import { ExplorarScreen } from "../screens/ExplorarScreens/ExplorarScreen";
 import { AuthContext } from "../context/AuthContext";
+import ExplorarScreen from "@component/ExplorarScreens/ExplorarScreen";
 
 const BottomTabAndroid = createMaterialBottomTabNavigator();
 
