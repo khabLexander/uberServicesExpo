@@ -21,7 +21,7 @@ export const CuentaScreen = (props: any) => {
           />
         </View>
         <Text style={stylesCuenta.nameUser}>
-          {authState.nombre} {authState.apellido}
+          {authState.name} {authState.lastname}
         </Text>
       </View>
 
@@ -81,7 +81,9 @@ export const CuentaScreen = (props: any) => {
             Realiza entregas con UberServices
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={stylesCuenta.optionsAccount}>
+        <TouchableOpacity style={stylesCuenta.optionsAccount}
+          onPress={() => props.navigation.navigate('Login')}
+        >
           <Icon
             style={{ marginLeft: 20 }}
             name={"settings"}

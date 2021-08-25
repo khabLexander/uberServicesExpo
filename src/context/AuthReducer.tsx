@@ -1,35 +1,42 @@
-import { AuthState } from './AuthContext';
+import { UserModel } from '../models/user.model';
 
+export type LoginUser = {
+  userName: string;
+  password: string;
+};
 
-export type AuthAction = | { type : 'signIn', payLoad: string}
-                         | { type : 'logOut'}
-                         | { type : 'pagoActual',payLoad: string}
+export type AuthAction =
+  | { type: "signIn"; payLoad: UserModel }
+  | { type: "logOut" }
+  | { type: "pagoActual"; payLoad: string };
 
-export const authReducer = (initialState: AuthState, action: AuthAction):AuthState => {
-    switch(action.type){
-            case 'signIn':{
-                return{
-                    ...initialState,
-                    isLoggedIn: true,
-                    userName: action.payLoad
-                }
-            }
-            case 'logOut':{
-                return{
-                    ...initialState,
-                    isLoggedIn: false,
-                    userName: undefined
-                }
-            }
-            case 'pagoActual':{
-                return{
-                    ...initialState,
-                    metodoPago: action.payLoad
-                }
-            }
-            default:{
-                break;
-            }
+export const authReducer = (initialState: UserModel, action: AuthAction): UserModel => {
+  switch (action.type) {
+    case "signIn": {
+      return {
+        ...initialState,
+        isLoggedIn: true,
+        username: action.payLoad.username,
+        name: action.payLoad.name,
+        lastname: action.payLoad.lastname
+      };
     }
-    return initialState;
-}
+    case "logOut": {
+      return {
+        ...initialState,
+        isLoggedIn: false,
+        username: undefined,
+      };
+    }
+    // case "pagoActual": {
+    //   return {
+    //     ...initialState,
+    //     metodoPago: action.payLoad,
+    //   };
+    // }
+    default: {
+      break;
+    }
+  }
+  return initialState;
+};
