@@ -1,23 +1,30 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 
 
-interface Props extends StackScreenProps<any,any>{
-
-}
 
 
-const NeogicioDetailsScreen = ({route}:Props) => {
 
-    const params = route.params
+const NeogicioDetailsScreen = ({imagen, name}: any) => {
 
-    console.log(params);
+    console.log(name)
     return (
-        <View>
-            <Text>{params}</Text>
+        <View style={styles.modalContainer}>
+            <Text style={styles.title}>{name}</Text>
         </View>
     )
 }
+const styles = StyleSheet.create({
+    title:{
+        fontSize: 25,
+        fontWeight:'bold',
+        textAlign:'center',
+    },
+    modalContainer:{
+        top:30,
+        
+    }
+});
 
 export default NeogicioDetailsScreen

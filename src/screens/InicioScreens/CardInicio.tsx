@@ -1,26 +1,53 @@
-import { StackScreenProps } from '@react-navigation/stack';
-import React from 'react'
+import React, { useRef } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { Modalize } from 'react-native-modalize';
+import NeogicioDetailsScreen from './NegocioDetailsScreen';
 
 
 
-export const CardInicio = ({ imagen, name}: any) => {
+export const CardInicio = ({ imagen, name }: any) => {
 
-    const navigation = useNavigation();
-    
+    const modalizeRef = useRef<Modalize>(null);
+
+    const onOpen = () => {
+        modalizeRef.current?.open();
+    }
+
+    const onClose = () => {
+        modalizeRef.current?.close();
+    }
+
 
     return (
-        <TouchableOpacity style={{ ...styles.cardContainer }} onPress={() => navigation.navigate('NeogicioDetailsScreen' ,name ) } >
-            <Icon name={'heart-outline'} size={30} style={styles.iconCard} color="#000000" />
+        <>
             <View >
-                <Image source={{ uri: imagen }} style={styles.imagenCard}>
+                <TouchableOpacity onPress={onOpen} style={styles.cardContainer}>
 
-                </Image>
+                    <View style={styles.iconCard}>
+                        <Icon name={'heart-outline'} size={30} color="#000000" />
+                    </View>
+                    <View >
+                        <Image source={{ uri: imagen }} style={styles.imagenCard}></Image>
+                    </View>
+                    <View style={styles.textCard}>
+                        <Text style={styles.title}>{name}</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
 
-        </TouchableOpacity>
+            <Modalize ref={modalizeRef} snapPoint={600}>
+                <View>
+                    <View style={styles.closeIcon}>
+                        <Icon name={'close-outline'} size={35} color="#000000" onPress={onClose}></Icon>
+                    </View>
+                    <View>
+                        <NeogicioDetailsScreen imagen={imagen} name={name}></NeogicioDetailsScreen>
+                    </View>
+                </View>
+
+            </Modalize>
+        </>
     )
 }
 
@@ -53,10 +80,25 @@ const styles = StyleSheet.create({
         width: 300,
         height: 150,
         right: 70,
-        bottom:10
+        bottom: 10
 
     },
     iconCard: {
-        left:250
+        left: 250,
+        top: 10
+    },
+    title: {
+        fontSize: 20,
+
+    },
+    closeIcon: {
+
+        left: 350,
+        top: 20,
+    },
+    textCard: {
+        right: 95,
+        top: 5,
+       
     }
 })
