@@ -3,12 +3,9 @@ import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { SocialIcon, Input, Button } from "react-native-elements";
 import { LoginModel } from "../../models/login.model";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
-import axios from "axios";
-// import { axios_authentication } from "src/global/API";
 import { AuthContext } from "../../context/AuthContext";
-import { ServerResponse } from '../../models/server-response';
 import { UserModel } from '../../models/user.model';
-import { useEffect } from 'react';
+import { authenticationAPI } from "../../api/authenticationAPI";
 
 export const Login = (props: any) => {
   const login: LoginModel = {
@@ -24,22 +21,26 @@ export const Login = (props: any) => {
     setState({ ...user, [name]: value });
   };
 
-
-
   const saveNewUser = async () => {
     console.log(user);
-    axios
-      .post('http://192.168.100.32:8000/api/v1/auth/login', user)
+    
+    authenticationAPI.post('/auth/login', user)
       .then(function (response) {
         console.log(response)
-        signIn(response.data.data.user);
-        console.log(authState);
+        const user = saveToken(response.data.data.user, response.data.token);
+        signIn(user);
         props.navigation.navigate("BottomTabs");
       })
       .catch(function (error) {
-        console.log("ERROR");
         console.log(error);
       });
+  }
+  const saveToken = (user: UserModel, token: string) => {
+    const userLoged = {
+      ...user,
+      token
+    }
+    return userLoged;
   }
 
   return (

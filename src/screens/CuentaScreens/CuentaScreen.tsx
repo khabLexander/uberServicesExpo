@@ -4,10 +4,25 @@ import { stylesCuenta } from "../../themes/CuentaStyles";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../context/AuthContext";
 import Icon from "react-native-vector-icons/Ionicons";
+import axios from "axios";
+import { appAPI } from '../../api/appAPI';
+
 
 export const CuentaScreen = (props: any) => {
   const navigation = useNavigation();
   const { authState, signIn } = useContext(AuthContext);
+
+  const getCategories = () => {
+    console.log(authState.token);
+    appAPI
+      .get('/categories', { headers: { "Authorization": `Bearer ${authState.token}` } })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   return (
     <View>
@@ -70,7 +85,9 @@ export const CuentaScreen = (props: any) => {
           />
           <Text style={stylesCuenta.textOptions}>Ayuda</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={stylesCuenta.optionsAccount}>
+        <TouchableOpacity style={stylesCuenta.optionsAccount}
+          onPress={() => getCategories()}
+        >
           <Icon
             style={{ marginLeft: 20 }}
             name={"briefcase"}

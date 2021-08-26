@@ -18,7 +18,8 @@ export const authReducer = (initialState: UserModel, action: AuthAction): UserMo
         isLoggedIn: true,
         username: action.payLoad.username,
         name: action.payLoad.name,
-        lastname: action.payLoad.lastname
+        lastname: action.payLoad.lastname,
+        token: action.payLoad.token
       };
     }
     case "logOut": {

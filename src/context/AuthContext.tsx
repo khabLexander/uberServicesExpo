@@ -20,7 +20,8 @@ export const AuthInitialState: UserModel = {
   name: 'juanito',
   email: 'alimaña@hotmail.com',
   birthdate: 'null',
-  isLoggedIn: false
+  isLoggedIn: false,
+  token:''
 };
 
 //Encapsular  en el estado inicial

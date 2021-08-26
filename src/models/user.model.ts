@@ -16,4 +16,5 @@ export interface UserModel {
   email?: string;
   birthdate?: string;
   isLoggedIn?: boolean;
+  token?: string;
 }
