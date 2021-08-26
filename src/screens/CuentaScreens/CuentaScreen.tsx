@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { stylesCuenta } from "../../themes/CuentaStyles";
 import { useNavigation } from "@react-navigation/native";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import { appAPI } from '../../api/appAPI';
@@ -13,7 +13,6 @@ export const CuentaScreen = (props: any) => {
   const { authState, signIn } = useContext(AuthContext);
 
   const getCategories = () => {
-    console.log(authState.token);
     appAPI
       .get('/categories', { headers: { "Authorization": `Bearer ${authState.token}` } })
       .then(function (response) {
@@ -55,7 +54,9 @@ export const CuentaScreen = (props: any) => {
             COVID-19: Centro de seguridad
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={stylesCuenta.optionsAccount}>
+        <TouchableOpacity style={stylesCuenta.optionsAccount}
+          onPress={() => props.navigation.navigate('FavoritesScreen')}
+        >
           <Icon
             style={{ marginLeft: 20 }}
             name={"heart"}

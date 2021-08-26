@@ -1,4 +1,4 @@
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../../models/user.model';
 
 export type LoginUser = {
   userName: string;
@@ -13,13 +13,15 @@ export type AuthAction =
 export const authReducer = (initialState: UserModel, action: AuthAction): UserModel => {
   switch (action.type) {
     case "signIn": {
+
       return {
         ...initialState,
         isLoggedIn: true,
         username: action.payLoad.username,
         name: action.payLoad.name,
         lastname: action.payLoad.lastname,
-        token: action.payLoad.token
+        token: action.payLoad.token,
+        id: action.payLoad.id
       };
     }
     case "logOut": {

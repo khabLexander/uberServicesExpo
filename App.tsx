@@ -2,7 +2,9 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { BottomTabs } from "./src/navigator/BottomTabs";
 import { StackNavigator } from "./src/navigator/StackNavigator";
-import { AuthProvider } from "./src/context/AuthContext";
+import { AuthProvider } from "./src/context/AuthContext/AuthContext";
+import { FavoriteProvider } from "./src/context/FavoriteContext/FavoriteContext";
+
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
@@ -25,5 +27,12 @@ export default function App() {
 //AuthProvider y encapsular al StackNavigator
 
 const AppState = ({ children }: any) => {
-  return <AuthProvider>{children}</AuthProvider>;
+  return <>
+    <AuthProvider>
+      {children}
+      <FavoriteProvider>
+      </FavoriteProvider>
+    </AuthProvider>;
+
+  </>
 };

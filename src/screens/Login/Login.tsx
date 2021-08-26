@@ -3,7 +3,7 @@ import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { SocialIcon, Input, Button } from "react-native-elements";
 import { LoginModel } from "../../models/login.model";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { UserModel } from '../../models/user.model';
 import { authenticationAPI } from "../../api/authenticationAPI";
 
@@ -15,8 +15,6 @@ export const Login = (props: any) => {
   };
   const { authState, signIn } = useContext(AuthContext);
   const [user, setState] = useState(login);
-  const [bto, setBto] = useState(false);
-  const [userResponse, setUserResponse] = useState(authState);
   const handleChangeText = (value: string, name: string) => {
     setState({ ...user, [name]: value });
   };

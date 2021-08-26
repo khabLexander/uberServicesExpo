@@ -14,6 +14,7 @@ import CardInicio from "../screens/InicioScreens/CardInicio";
 import DetallesScreen from "../screens/ExplorarScreens/DetallesScreen";
 import ComidaScreen from "../screens/ExplorarScreens/ComidaScreen";
 import LocalScreen from "../screens/ExplorarScreens/LocalScreen";
+import { FavoritesScreen } from '../screens/CuentaScreens/FavoritesScreen';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ export const StackNavigator = () => {
       <Stack.Screen name="CuponesScreen" component={CuponesScreen} />
       <Stack.Screen name="TarjetaScreen" component={TarjetaScreen} />
       <Stack.Screen name="AgregarCuponScreen" component={AgregarCuponScreen} />
+      <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
       {/*Derivados de Inicio*/}
       <Stack.Screen name="CardInicio" component={CardInicio} />
       <Stack.Screen

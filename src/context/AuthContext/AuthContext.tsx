@@ -21,7 +21,7 @@ export const AuthInitialState: UserModel = {
   email: 'alimaña@hotmail.com',
   birthdate: 'null',
   isLoggedIn: false,
-  token:''
+  token: ''
 };
 
 //Encapsular  en el estado inicial
@@ -31,14 +31,15 @@ export const AuthInitialState: UserModel = {
 export interface AuthContextProps {
   authState: UserModel;
   //mas complejo a futuro  recibe a fuerzas un userName  o correo y contraseña
-  signIn: (user:UserModel) => void;
+  signIn: (user: UserModel) => void;
   logOut: () => void;
   pagoActual: (metodoPago: string) => void;
 }
 
-//Mi contexto creado Mi contexto creado Mi contexto creado
+//Mi contexto creado Mi contexto creasdo Mi contexto creado
 export const AuthContext = createContext({} as AuthContextProps);
 //Mi contexto creado Mi contexto creado Mi contexto creado
+
 
 //Proveedor contexto de usuario logeado a toda la aplicación
 
