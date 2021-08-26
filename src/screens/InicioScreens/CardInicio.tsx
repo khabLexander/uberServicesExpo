@@ -33,16 +33,21 @@ export const CardInicio = ({ imagen, name }: any) => {
                     <View style={styles.textCard}>
                         <Text style={styles.title}>{name}</Text>
                     </View>
+                    <View style={styles.iconTag}>
+                        <Icon name={'pricetag-sharp'} size={20} color={'green'}></Icon>
+                        <Text> Costo de envio: $1.39 - 35-45 min</Text>
+                    </View>
                 </TouchableOpacity>
             </View>
 
-            <Modalize ref={modalizeRef} snapPoint={600}>
+            <Modalize ref={modalizeRef} snapPoint={700}>
                 <View>
                     <View style={styles.closeIcon}>
                         <Icon name={'close-outline'} size={35} color="#000000" onPress={onClose}></Icon>
                     </View>
-                    <View>
+                    <View style={{flex:1, bottom:30}}>
                         <NeogicioDetailsScreen imagen={imagen} name={name}></NeogicioDetailsScreen>
+                        
                     </View>
                 </View>
 
@@ -60,11 +65,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         height: 260,
         width: 400,
-        marginBottom: 25,
+        marginBottom: 0,
         marginTop: 40,
         borderRadius: 10,
         left: -30,
         paddingHorizontal: 100,
+        paddingBottom: 200,
         // borderWidth: 0.5,
         shadowColor: "#000",
         shadowOffset: {
@@ -77,15 +83,15 @@ const styles = StyleSheet.create({
         elevation: 15,
     },
     imagenCard: {
-        width: 300,
+        width: 395,
         height: 150,
-        right: 70,
+        right:100,
         bottom: 10
 
     },
     iconCard: {
         left: 250,
-        top: 10
+        top: 10,
     },
     title: {
         fontSize: 20,
@@ -99,6 +105,12 @@ const styles = StyleSheet.create({
     textCard: {
         right: 95,
         top: 5,
-       
+
+    },
+    iconTag: {
+        top:10,
+        right: 100,
+        flexDirection:'row',
+        
     }
 })

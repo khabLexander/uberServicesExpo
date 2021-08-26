@@ -21,7 +21,7 @@ export const InicioScreen = (props: Props) => {
     return (
         
         <View style={styles.inicioContainer}>
-            <View>
+            <View style={styles.tituloContainer}>
                 <Text style={styles.titulo}>Que deseas pedir hoy?  </Text>
             </View>
 
@@ -49,9 +49,10 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 20,
         fontWeight: 'bold',
+       
+    },
+    tituloContainer: {
         top: 20,
         right: -100,
-
-
     }
 });
