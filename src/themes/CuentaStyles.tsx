@@ -137,13 +137,41 @@ export const stylesCuenta = StyleSheet.create({
     },
     //Favoritos sección
     tarjeta: {
-        height: 100,
+        height: 130,
         width: '100%',
         borderWidth: 0.5,
-        borderColor: '#827878'
+        borderColor: '#827878',
+        flexDirection: "row"
     },
     tarjetas: {
+        width: '100%',
         height: '100%',
-        marginTop: 5
+        marginTop: 5,
+    },
+    imageFavorites: {
+        marginTop: 8,
+        borderRadius: 2,
+        borderStyle: 'solid',
+        resizeMode: 'stretch',
+        height: '80%',
+        width: '25%'
+    },
+    favoriteData: {
+        flexDirection: "row",
+    },
+    titleFavoriteName: {
+        fontSize: 15,
+        fontWeight: "bold",
+        flexDirection: 'column'
+    },
+    descriptionFavorite: {
+        fontSize: 10,
+        alignSelf: 'stretch',
+        flexDirection: 'column'
+    },
+    iconDelete: {
+        position: "absolute",
+        right: 40,
+        bottom: 30
     }
 });

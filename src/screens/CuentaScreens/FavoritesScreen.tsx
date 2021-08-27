@@ -8,8 +8,8 @@ import { appAPI } from '../../api/appAPI';
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { useState } from 'react';
 import { FavoriteModel } from '../../models/favorite.model';
-import { FavoriteContext } from '../../context/FavoriteContext/FavoriteContext';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ActivityIndicator } from 'react-native-paper';
 
 let data: FavoriteModel[] = [];
 
@@ -19,20 +19,21 @@ export const FavoritesScreen = () => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         getFavorites();
-    }, [])
+    }, [isLoading])
     const getFavorites = async () => {
-        const resp = await appAPI.get(`/clients/${5}/products`, { headers: { "Authorization": `Bearer ${authState.token}` } })
+        const resp = await appAPI.get(`/clients/${7}/products`, { headers: { "Authorization": `Bearer ${authState.token}` } })
         if (resp) {
             data = resp.data.data
-            console.log(data);
             setIsLoading(false);
         } else {
-            console.log('Error');
+            console.log('Error obteniendo los productos del cliente');
         }
     };
 
+
+
     return (
-        <ScrollView>
+        <>
             <View style={stylesCuenta.bannerTop}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
@@ -43,21 +44,26 @@ export const FavoritesScreen = () => {
                     Tus favoritos
                 </Text>
             </View>
-            <View>
+            <>
                 {
                     isLoading ?
-                        <Text>
-                            asdlkasdmkañsd
-                        </Text> :
-                        <View style={stylesCuenta.tarjetas}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                            <ActivityIndicator color="black" size={100} />
+                        </View>
+                        :
+                        <ScrollView style={stylesCuenta.tarjetas}>
                             {
                                 data.map(m => (
-                                    <FavoriteComponent key={m.id} data={m} />
+                                    <FavoriteComponent
+                                        key={m.id}
+                                        data={m}
+                                        setIsLoading={setIsLoading}
+                                    />
                                 ))
                             }
-                        </View>
+                        </ScrollView>
                 }
-            </View>
-        </ScrollView>
+            </>
+        </>
     )
 }

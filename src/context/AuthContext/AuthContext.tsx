@@ -21,7 +21,8 @@ export const AuthInitialState: UserModel = {
   email: 'alimaña@hotmail.com',
   birthdate: 'null',
   isLoggedIn: false,
-  token: ''
+  //este token quemado para evitar logearme a cada rato
+  token: '60|oMiRrJQd8vJHyq4wcStzLYfFGHNz8LONRvzAQDYL'
 };
 
 //Encapsular  en el estado inicial
