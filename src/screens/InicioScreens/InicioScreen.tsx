@@ -19,18 +19,16 @@ export const InicioScreen = (props: Props) => {
         // })
     }, [])
     return (
-
+        
         <View style={styles.inicioContainer}>
-            <View>
+            <View style={styles.tituloContainer}>
                 <Text style={styles.titulo}>Que deseas pedir hoy?  </Text>
             </View>
 
             <ScrollView>
-                <CardInicio name ="KFC" imagen="https://wwwhatsnew.com/wp-content/uploads/2018/12/imagen1-730x359.jpg"  ></CardInicio>
+                <CardInicio name ="KFC (Baca Ortiz)" imagen="https://wwwhatsnew.com/wp-content/uploads/2018/12/imagen1-730x359.jpg"  ></CardInicio>
                 <CardInicio name ="MacDonalds" imagen ="https://media.cdnp.elobservador.com.uy/062021/1623675656992.jpg"></CardInicio>
-                <CardInicio name ="Burger King" nombre= 'Burger King'></CardInicio>
-                <CardInicio name ="Las menestras del negro"></CardInicio>
-                <CardInicio name ="MayFlower"></CardInicio>
+                <CardInicio name ="Burger King" imagen= 'Burger King'></CardInicio>
             </ScrollView>
 
 
@@ -51,9 +49,10 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 20,
         fontWeight: 'bold',
+       
+    },
+    tituloContainer: {
         top: 20,
         right: -100,
-
-
     }
 });

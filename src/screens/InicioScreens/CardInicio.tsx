@@ -1,26 +1,58 @@
-import { StackScreenProps } from '@react-navigation/stack';
-import React from 'react'
+import React, { useRef } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { Modalize } from 'react-native-modalize';
+import NeogicioDetailsScreen from './NegocioDetailsScreen';
 
 
 
-export const CardInicio = ({ imagen, name}: any) => {
+export const CardInicio = ({ imagen, name }: any) => {
 
-    const navigation = useNavigation();
-    
+    const modalizeRef = useRef<Modalize>(null);
+
+    const onOpen = () => {
+        modalizeRef.current?.open();
+    }
+
+    const onClose = () => {
+        modalizeRef.current?.close();
+    }
+
 
     return (
-        <TouchableOpacity style={{ ...styles.cardContainer }} onPress={() => navigation.navigate('NeogicioDetailsScreen' ,name ) } >
-            <Icon name={'heart-outline'} size={30} style={styles.iconCard} color="#000000" />
+        <>
             <View >
-                <Image source={{ uri: imagen }} style={styles.imagenCard}>
+                <TouchableOpacity onPress={onOpen} style={styles.cardContainer}>
 
-                </Image>
+                    <View style={styles.iconCard}>
+                        <Icon name={'heart-outline'} size={30} color="#000000" />
+                    </View>
+                    <View >
+                        <Image source={{ uri: imagen }} style={styles.imagenCard}></Image>
+                    </View>
+                    <View style={styles.textCard}>
+                        <Text style={styles.title}>{name}</Text>
+                    </View>
+                    <View style={styles.iconTag}>
+                        <Icon name={'pricetag-sharp'} size={20} color={'#4AD811'}></Icon>
+                        <Text> Costo de envio: $1.39 - 35-45 min</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
 
-        </TouchableOpacity>
+            <Modalize ref={modalizeRef} snapPoint={700}>
+                <TouchableOpacity onPress={onClose}>
+                    <View style={styles.closeIcon}>
+                        <Icon name={'close-outline'} size={35} color="#000000" ></Icon>
+                    </View>
+                    <View style={{flex:1, bottom:30}}>
+                        <NeogicioDetailsScreen imagen={imagen} name={name}></NeogicioDetailsScreen>
+                        
+                    </View>
+                </TouchableOpacity>
+
+            </Modalize>
+        </>
     )
 }
 
@@ -33,11 +65,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         height: 260,
         width: 400,
-        marginBottom: 25,
+        marginBottom: 0,
         marginTop: 40,
         borderRadius: 10,
         left: -30,
         paddingHorizontal: 100,
+        paddingBottom: 200,
         // borderWidth: 0.5,
         shadowColor: "#000",
         shadowOffset: {
@@ -50,13 +83,34 @@ const styles = StyleSheet.create({
         elevation: 15,
     },
     imagenCard: {
-        width: 300,
+        width: 395,
         height: 150,
-        right: 70,
-        bottom:10
+        right:100,
+        bottom: 10
 
     },
     iconCard: {
-        left:250
+        left: 250,
+        top: 10,
+    },
+    title: {
+        fontSize: 20,
+
+    },
+    closeIcon: {
+
+        left: 350,
+        top: 20,
+    },
+    textCard: {
+        right: 95,
+        top: 5,
+
+    },
+    iconTag: {
+        top:10,
+        right: 100,
+        flexDirection:'row',
+        
     }
 })
