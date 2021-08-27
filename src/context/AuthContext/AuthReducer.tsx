@@ -21,7 +21,9 @@ export const authReducer = (initialState: UserModel, action: AuthAction): UserMo
         name: action.payLoad.name,
         lastname: action.payLoad.lastname,
         token: action.payLoad.token,
-        id: action.payLoad.id
+        id: action.payLoad.id,
+        clientPaymentMethod: action.payLoad.clientPaymentMethod,
+        clientId: action.payLoad.clientId
       };
     }
     case "logOut": {

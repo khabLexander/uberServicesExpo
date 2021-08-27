@@ -17,4 +17,6 @@ export interface UserModel {
   birthdate?: string;
   isLoggedIn?: boolean;
   token?: string;
+  clientPaymentMethod?: string;
+  clientId?: number;
 }

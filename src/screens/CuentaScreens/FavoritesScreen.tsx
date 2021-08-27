@@ -21,7 +21,7 @@ export const FavoritesScreen = () => {
         getFavorites();
     }, [isLoading])
     const getFavorites = async () => {
-        const resp = await appAPI.get(`/clients/${7}/products`, { headers: { "Authorization": `Bearer ${authState.token}` } })
+        const resp = await appAPI.get(`/clients/${authState.clientId}/products`, { headers: { "Authorization": `Bearer ${authState.token}` } })
         if (resp) {
             data = resp.data.data
             setIsLoading(false);
@@ -29,9 +29,6 @@ export const FavoritesScreen = () => {
             console.log('Error obteniendo los productos del cliente');
         }
     };
-
-
-
     return (
         <>
             <View style={stylesCuenta.bannerTop}>

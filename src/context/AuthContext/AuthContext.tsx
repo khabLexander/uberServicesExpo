@@ -22,7 +22,9 @@ export const AuthInitialState: UserModel = {
   birthdate: 'null',
   isLoggedIn: false,
   //este token quemado para evitar logearme a cada rato
-  token: '60|oMiRrJQd8vJHyq4wcStzLYfFGHNz8LONRvzAQDYL'
+  token: '60|oMiRrJQd8vJHyq4wcStzLYfFGHNz8LONRvzAQDYL',
+  clientPaymentMethod: '',
+  clientId: 0
 };
 
 //Encapsular  en el estado inicial

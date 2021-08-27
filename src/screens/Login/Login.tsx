@@ -6,6 +6,7 @@ import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { UserModel } from '../../models/user.model';
 import { authenticationAPI } from "../../api/authenticationAPI";
+import { appAPI } from '../../api/appAPI';
 
 export const Login = (props: any) => {
   const login: LoginModel = {
@@ -18,27 +19,35 @@ export const Login = (props: any) => {
   const handleChangeText = (value: string, name: string) => {
     setState({ ...user, [name]: value });
   };
-
   const saveNewUser = async () => {
     console.log(user);
-    
-    authenticationAPI.post('/auth/login', user)
-      .then(function (response) {
-        console.log(response)
-        const user = saveToken(response.data.data.user, response.data.token);
-        signIn(user);
-        props.navigation.navigate("BottomTabs");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-  const saveToken = (user: UserModel, token: string) => {
-    const userLoged = {
-      ...user,
-      token
+    const response = await authenticationAPI.post('/auth/login', user)
+    if (response) {
+      const user = await saveToken(response.data.data.user, response.data.token);
+      signIn(user);
+      props.navigation.navigate("BottomTabs");
     }
-    return userLoged;
+    else {
+      console.log(response)
+    }
+  }
+  const saveToken = async (user: UserModel, token: string) => {
+    const response = await appAPI.get(`/clients/${user.id}`, { headers: { "Authorization": `Bearer ${token}` } })
+    if (response) {
+      const clientId = response.data.data[0].user_id
+      const clientPaymentMethod = response.data.data[0].payment_method
+      const userLoged = {
+        ...user,
+        token,
+        clientId,
+        clientPaymentMethod
+      }
+      console.log(userLoged)
+      return userLoged;
+    }
+    else {
+      console.log('valevergalavida')
+    }
   }
 
   return (
