@@ -34,22 +34,22 @@ export const CardInicio = ({ imagen, name }: any) => {
                         <Text style={styles.title}>{name}</Text>
                     </View>
                     <View style={styles.iconTag}>
-                        <Icon name={'pricetag-sharp'} size={20} color={'green'}></Icon>
+                        <Icon name={'pricetag-sharp'} size={20} color={'#4AD811'}></Icon>
                         <Text> Costo de envio: $1.39 - 35-45 min</Text>
                     </View>
                 </TouchableOpacity>
             </View>
 
             <Modalize ref={modalizeRef} snapPoint={700}>
-                <View>
+                <TouchableOpacity onPress={onClose}>
                     <View style={styles.closeIcon}>
-                        <Icon name={'close-outline'} size={35} color="#000000" onPress={onClose}></Icon>
+                        <Icon name={'close-outline'} size={35} color="#000000" ></Icon>
                     </View>
                     <View style={{flex:1, bottom:30}}>
                         <NeogicioDetailsScreen imagen={imagen} name={name}></NeogicioDetailsScreen>
                         
                     </View>
-                </View>
+                </TouchableOpacity>
 
             </Modalize>
         </>
