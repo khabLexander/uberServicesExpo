@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
-  SafeAreaView,
   StyleSheet,
   Image,
   Text,
@@ -9,116 +7,181 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import LocalScreen from "./LocalScreen";
 const CATEGORIESMOCK = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    name: "First Item",
+    name: "Víveres",
+    description: '',
+    imgUrl: ''
   },
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    name: "Second Item",
+    name: "Ferreteria",
+    description: '',
+    imgUrl: ''
   },
   {
     id: "58694a0f-3da1-47091f-bd96-145571e29d72",
-    name: "Third Item",
+    name: "Third Item", description: '',
+    imgUrl: ''
   },
   {
     id: "bd7acbea-c1b1-0946c2-aed5-3ad53abb28ba",
-    name: "First Item",
+    name: "First Item", description: '',
+    imgUrl: ''
   },
   {
     id: "3ac68afc-c6059-48d3-a4f8-fbd91aa97f63",
-    name: "Second Item",
+    name: "Second Item", description: '',
+    imgUrl: ''
   },
   {
     id: "58694a0f-3da81-471f-bd96-145571e29d72",
-    name: "Third Item",
+    name: "Third Item", description: '',
+    imgUrl: ''
   },
   {
     id: "bd7acbea-777c1b1-46c2-aed5-3ad53abb28ba",
-    name: "First Item",
+    name: "First Item", description: '',
+    imgUrl: ''
   },
   {
     id: "3ac68afc-c605-433338d3-a4f8-fbd91aa97f63",
-    name: "Second Item",
+    name: "Second Item", description: '',
+    imgUrl: ''
   },
   {
     id: "58694a0f-4545453da1-471f-bd96-145571e29d72",
-    name: "Third Item",
+    name: "Third Item", description: '',
+    imgUrl: ''
   },
   {
     id: "bd7ac4545bea-c1b1-46c2-aed5-3ad53abb28ba",
-    name: "First Item",
+    name: "First Item", description: '',
+    imgUrl: ''
   },
   {
     id: "3ac3568afc-c605-48d3-a4f8-fbd91aa97f63",
-    name: "Second Item",
+    name: "Second Item", description: '',
+    imgUrl: ''
   },
   {
     id: "3458694a0f-3da1-471f-bd96-145571e29d72",
-    name: "Third Item",
+    name: "Third Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1",
+    name: "Víveres",
+    description: '',
+    imgUrl: ''
+  },
+  {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f632",
+    name: "Ferreteria",
+    description: '',
+    imgUrl: ''
+  },
+  {
+    id: "58694a0f-3da1-47091f-bd96-145571e29d723",
+    name: "Third Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "bd7acbea-c1b1-0946c2-aed5-3ad53abb28ba4",
+    name: "First Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "3ac68afc-c6059-48d3-a4f8-fbd91aa97f635",
+    name: "Second Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "58694a0f-3da81-471f-bd96-145571e29d726",
+    name: "Third Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "bd7acbea-777c1b1-46c2-aed5-3ad53abb28ba7",
+    name: "First Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "3ac68afc-c605-433338d3-a4f8-fbd91aa97f638",
+    name: "Second Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "58694a0f-4545453da1-471f-bd96-145571e29d729",
+    name: "Third Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "bd7ac4545bea-c1b1-46c2-aed5-3ad53abb28ba0",
+    name: "First Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "3ac3568afc-c605-48d3-a4f8-fbd91aa97f6311",
+    name: "Second Item", description: '',
+    imgUrl: ''
+  },
+  {
+    id: "3458694a0f-3da1-471f-bd96-145571e29d7212",
+    name: "Third Item", description: '',
+    imgUrl: ''
   },
 ];
 
 export default function ExplorarScreen(props: any) {
-  const [categories, setCategories] = useState<{}[]>();
-  const [selectedCategory, setSelectedCategory] = useState<{}>();
-  const navigation = useNavigation();
-  useEffect(() => {
-    setCategories(CATEGORIESMOCK);
-    setSelectedCategory(CATEGORIESMOCK[0]);
-  }, []);
-  function renderItem(item: any) {
+
+  function renderItem(category: any) {
     return (
       <TouchableOpacity
-        style={[styles.divCategorie, { backgroundColor: item.color }]}
+        style={styles.button}
         onPress={() => {
-          setSelectedCategory(item);
-          props.navigation.navigate("LocalScreen", { category: item });
+          props.navigation.navigate("LocalScreen", { category });
         }}
       >
+        <Text style={{ fontSize: 20 }}>{category.name}</Text>
         <Image
-          style={{ width: 100, height: 80 }}
+          style={{ width: 100, height: 50 }}
           resizeMode="contain"
-          source={{ uri: "https://picsum.photos/150" }}
+          source={{ uri: "https://picsum.photos/100" }}
         />
-        <Text style={{ fontWeight: "bold", fontSize: 12 }}>{item.name}</Text>
       </TouchableOpacity>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Text style={{ alignSelf: 'flex-start', fontSize: 30, }}>Todas las categorias</Text>
       <FlatList
-        horizontal={true}
-        data={categories}
+        numColumns={2}
+        data={CATEGORIESMOCK}
         renderItem={({ item }) => renderItem(item)}
         keyExtractor={(item, index) => index.toString()}
       />
-      <LocalScreen selectedCategory={selectedCategory} />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
+    margin: 10
   },
-  divCategorie: {
-    backgroundColor: "red",
-    margin: 5,
-    alignItems: "center",
-    borderRadius: 10,
-    padding: 10,
-  },
-  nameCatg: {
-    fontSize: 30,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 10,
+  button: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    backgroundColor: "lightgrey",
+    padding: 2,
+    margin: 10,
+    borderRadius: 6
   },
 });
