@@ -14,13 +14,13 @@ export default function DetallesScreen(props: any) {
         setItem(props.route.params.item)
     }, [])
     const sumar = () => {
-        let nuevaCantidad = parseInt(cantidad + 1);
-        setCantidad(nuevaCantidad);
+        // let nuevaCantidad = parseInt(cantidad + 1);
+        // setCantidad(nuevaCantidad);
     };
     const restar = () => {
         if (cantidad > 1) {
-            let nuevaCantidad = parseInt(cantidad - 1);
-            setCantidad(nuevaCantidad);
+            // let nuevaCantidad = parseInt(cantidad - 1);
+            // setCantidad(nuevaCantidad);
         }
     };
     const calcularTotal = () => {
@@ -34,30 +34,35 @@ export default function DetallesScreen(props: any) {
         setCantidad(e);
     };
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <Icon onPress={() => props.navigation.goBack()} style={styles.iconBack} name={'arrow-back'} size={25} color="#000000"  />
+        <ScrollView style={{ backgroundColor: 'white' }}>
             <View style={styles.container}>
                 <Image
                     style={{ width: '100%', height: 250 }}
                     source={{ uri: "https://picsum.photos/200/100" }}
                 />
+                <View style={{
+                    left: 20,
+                    top: 10,
+                    position: 'absolute'
+                }}>
+                    <Icon onPress={() => props.navigation.goBack()} name={'arrow-back-circle'} size={35} color="white" />
+                </View>
                 <Text style={{ fontSize: 30, fontWeight: 'bold' }}>
                     {product.nombre}
                 </Text>
-                <Text style={{ fontSize: 12, color: '#969292', marginBottom: 10,marginTop:5 }}>
+                <Text style={{ fontSize: 15, color: '#969292', marginBottom: 10, marginTop: 5 }}>
                     {product.descripcion}
                 </Text>
                 <View style={styles.separator} />
                 <View style={{ flex: 1, flexDirection: 'row', marginVertical: 10 }}>
-                    <TouchableOpacity onPress={restar} style={{marginRight:10}}>
-                        <Icon name={'remove-circle'} size={35}  />
+                    <TouchableOpacity onPress={restar} style={{ marginRight: 10 }}>
+                        <Icon name={'remove-circle'} size={35} />
                     </TouchableOpacity>
                     <Text style={{ fontSize: 20, }}>{cantidad}</Text>
-                    <TouchableOpacity onPress={sumar} style={{marginLeft:10}} >
-                    <Icon name={'add-circle'} size={35}  />
-                        </TouchableOpacity>
+                    <TouchableOpacity onPress={sumar} style={{ marginLeft: 10 }} >
+                        <Icon name={'add-circle'} size={35} />
+                    </TouchableOpacity>
                 </View>
-
                 <TouchableOpacity
                     onPress={() => {
                         // const orden = {
@@ -69,12 +74,9 @@ export default function DetallesScreen(props: any) {
                         // postOrden(orden);
                         props.navigation.navigate("ComidaScreen", { item, cantidad, total });
                     }}
-
-
-                    style={{ backgroundColor: 'black', height: 70, width: '100%',  }}
+                    style={{ backgroundColor: 'black', height: 70, width: '90%', borderRadius:5  }}
                 >
-                    <Text style={{ color: 'white',textAlign:'center',fontSize: 25,marginTop:15 }}>Anadir al carrito</Text>
-
+                    <Text style={{ color: 'white', textAlign: 'center', fontSize: 25, marginTop: 15 }}>Anadir al carrito</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
@@ -108,7 +110,8 @@ const styles = StyleSheet.create({
     },
     iconBack: {
         marginLeft: 15,
-        marginTop:10
+        marginTop: 10,
+
     },
     title: {
         marginLeft: 15,
@@ -121,11 +124,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "white",
         // padding: 20,
-        margin: 10,
+        // margin: 1,
     },
     separator: {
         marginVertical: 8,
         borderBottomColor: '#737373',
-        borderBottomWidth: StyleSheet.hairlineWidth,
     },
 });

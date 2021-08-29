@@ -138,19 +138,29 @@ export default function ExplorarScreen(props: any) {
 
   function renderItem(category: any) {
     return (
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          props.navigation.navigate("LocalScreen", { category });
-        }}
-      >
-        <Text style={{ fontSize: 20 }}>{category.name}</Text>
-        <Image
-          style={{ width: 100, height: 50 }}
-          resizeMode="contain"
-          source={{ uri: "https://picsum.photos/100" }}
-        />
-      </TouchableOpacity>
+      <View style={styles.button}>
+
+
+        <TouchableOpacity
+
+          onPress={() => {
+            props.navigation.navigate("LocalScreen", { category });
+          }}
+        >
+          <Image
+            style={{ width: '100%', height: 200, }}
+            source={{ uri: "https://picsum.photos/100" }}
+          />
+          <View style={{
+            right: '50%',
+            top: '50%',
+            position: 'absolute',
+          }}>
+            <Text style={{ fontSize: 20, color: 'white', }}>{category.name}</Text>
+          </View>
+
+        </TouchableOpacity>
+      </View>
     );
   }
 
@@ -171,17 +181,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 10
+    // alignItems: "center",
+    justifyContent: "space-between",
   },
   button: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    backgroundColor: "lightgrey",
-    padding: 2,
+    flexDirection: 'column',
+    // justifyContent: "space-between",
+    // backgroundColor: "EAEAEA",
+    // padding: 2,
     margin: 10,
-    borderRadius: 6
+    borderRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+
+    elevation: 15,
   },
 });

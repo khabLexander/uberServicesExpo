@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList, TouchableOpacity, Image, Text } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/Ionicons";
+import CarritoModal from "./CarritoModal";
 const menuMock = [
     {
         nombre: 'Hamburguesa de queso',
@@ -66,6 +67,7 @@ const menuMock = [
 ];
 export default (props: any) => {
     const { local } = props.route.params;
+    const [hayOrden, setHayOrden] = useState(true)
     function renderItem(product: any) {
         return (
             <View>
@@ -75,10 +77,10 @@ export default (props: any) => {
                         props.navigation.navigate('DetallesScreen', { product })
                     }}
                 >
-                    <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{ fontSize: 13, fontWeight: 'bold' }}>{product.nombre}</Text>
-                        <Text style={{ fontSize: 12 }}>{product.precio}$</Text>
-                        <Text style={{ fontSize: 12, color: '#969292' }}>{product.descripcion}</Text>
+                    <View style={{ flex: 1, flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{product.nombre}</Text>
+                        <Text style={{ fontSize: 14 }}>${product.precio}</Text>
+                        <Text style={{ fontSize: 13, color: '#969292' }}>{product.descripcion}</Text>
                     </View>
                     <Image
                         style={{ width: 100, height: 100, }}
@@ -103,14 +105,15 @@ export default (props: any) => {
             </View>
             <View>
                 <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{local.nombre}</Text>
-                <Text style={{ fontWeight: 'bold' }}> <Icon name={'star'} size={15} color="#000000" /> {local.calification} . {local.categoria} </Text>
+                <Text style={{ fontWeight: 'bold' }}> <Icon name={'star'} size={15} color="#000000" /> Calificacion: {local.calification} . {local.categoria} </Text>
             </View>
-            <Text style={{marginVertical:35}}>Productos</Text>
+            <Text style={{ marginVertical: 35 }}>Productos</Text>
             <FlatList
                 data={menuMock}
                 renderItem={({ item }) => renderItem(item)}
                 keyExtractor={(item, index) => index.toString()}
             />
+                {hayOrden && <CarritoModal/>}
         </View>
     );
 };
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         // alignItems: "center",
         // justifyContent: "center",
-        margin: 10
+        marginBottom: 10
     },
     bannerTop: {
         width: '100%',
