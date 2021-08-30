@@ -28,7 +28,7 @@ export const Login = (props: any) => {
       props.navigation.navigate("BottomTabs");
     }
     else {
-      console.log(response)
+      console.log('Error : ' + response)
     }
   }
   const saveToken = async (user: UserModel, token: string) => {
@@ -46,7 +46,7 @@ export const Login = (props: any) => {
       return userLoged;
     }
     else {
-      console.log('valevergalavida')
+      console.log('Error : ' + response)
     }
   }
 

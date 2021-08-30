@@ -11,7 +11,7 @@ import { FavoriteModel } from '../../models/favorite.model';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native-paper';
 
-let data: FavoriteModel[] = [];
+let data: FavoriteModel[];
 
 export const FavoritesScreen = () => {
     const navigation = useNavigation();
@@ -26,7 +26,7 @@ export const FavoritesScreen = () => {
             data = resp.data.data
             setIsLoading(false);
         } else {
-            console.log('Error obteniendo los productos del cliente');
+            console.log('Error ' + resp);
         }
     };
     return (

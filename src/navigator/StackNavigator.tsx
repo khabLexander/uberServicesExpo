@@ -9,12 +9,12 @@ import { EfectivoScreen } from "../screens/CuentaScreens/EfectivoScreen";
 import { CuponesScreen } from "../screens/CuentaScreens/CuponesScreen";
 import { TarjetaScreen } from "../screens/CuentaScreens/TarjetaScreen";
 import { AgregarCuponScreen } from "../screens/CuentaScreens/AgregarCuponScreen";
-import NeogicioDetailsScreen from "../screens/InicioScreens/NegocioDetailsScreen";
-import CardInicio from "../screens/InicioScreens/CardInicio";
 import DetallesScreen from "../screens/ExplorarScreens/DetallesScreen";
 import ComidaScreen from "../screens/ExplorarScreens/ComidaScreen";
 import LocalScreen from "../screens/ExplorarScreens/LocalScreen";
 import { FavoritesScreen } from '../screens/CuentaScreens/FavoritesScreen';
+import { EnterpriseScreen } from "@component/InicioScreens/EnterpriseScreen";
+import NegocioDetailsScreen from '../screens/InicioScreens/NegocioDetailsScreen';
 
 const Stack = createStackNavigator();
 
@@ -46,11 +46,9 @@ export const StackNavigator = () => {
       <Stack.Screen name="AgregarCuponScreen" component={AgregarCuponScreen} />
       <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
       {/*Derivados de Inicio*/}
-      <Stack.Screen name="CardInicio" component={CardInicio} />
-      <Stack.Screen
-        name="NeogicioDetailsScreen"
-        component={NeogicioDetailsScreen}
-      />
+      <Stack.Screen name="NegocioDetailsScreen" component={NegocioDetailsScreen} />
+      <Stack.Screen name="EnterpriseScreen" component={EnterpriseScreen} />
+
       {/*Derivados de EXplorar*/}
       <Stack.Screen name="LocalScreen" component={LocalScreen} />
       <Stack.Screen name="ComidaScreen" component={ComidaScreen} />

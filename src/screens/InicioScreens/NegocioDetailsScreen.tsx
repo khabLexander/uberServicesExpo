@@ -1,43 +1,121 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { EnterpriseModel } from '../../models/enterprise.model';
+import { CategoryModel } from '../../models/category.model';
+import { appAPI } from '../../api/appAPI';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { ActivityIndicator } from 'react-native-paper';
+import { ProductModel } from '../../models/product.model';
 
 
+let categories: CategoryModel[];
+let products: ProductModel[];
 
 
-const NeogicioDetailsScreen = ({ imagen, name }: any) => {
+interface Props {
+    enterprise: EnterpriseModel
+}
 
-    console.log(name)
+const NegocioDetailsScreen = ({ enterprise }: Props) => {
+    const navigation = useNavigation();
+    const { authState, signIn } = useContext(AuthContext);
+    const [isLoadingCat, setIsLoadingCat] = useState(true);
+    const [isLoadingPro, setIsLoadingPro] = useState(true);
+
+    useEffect(() => {
+        getEnterpriseCagegories()
+        getEnterpriseProducts()
+    }, [])
+
+    const getEnterpriseCagegories = async () => {
+        const resp = await appAPI.get(`/enterprises/${enterprise.id}/categories`, { headers: { "Authorization": `Bearer ${authState.token}` } })
+        if (resp) {
+            categories = resp.data.data;
+            setIsLoadingCat(false)
+        }
+        else {
+            console.log('Error' + resp)
+        }
+    }
+    const getEnterpriseProducts = async () => {
+        const resp = await appAPI.get(`/enterprises/${enterprise.id}/products`, { headers: { "Authorization": `Bearer ${authState.token}` } })
+        if (resp) {
+            products = resp.data.data;
+            setIsLoadingPro(false)
+        }
+        else {
+            console.log('Error' + resp)
+        }
+    }
     return (
         <View style={styles.modalContainer}>
-            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.title}>{enterprise.name}</Text>
             <View style={styles.iconStar}>
                 <Icon name={'star-sharp'} size={18} ></Icon>
             </View>
             <View style={{ bottom: 8, left: 25, }}>
-                <Text style={{ fontSize: 15 }}>4.5 (220 calificaciones) * Pollo * $$ * </Text>
-            </View>
-            <View style={{ left: 280, bottom: 25 }}>
-                <Icon name={'pricetag-sharp'} size={18} color={'#4AD811'}></Icon>
+                <Text style={{ fontSize: 15 }}>{enterprise.calification}.{(Math.random() * (9 - 1 + 1) + 1).toFixed(0)}
+                    ({enterprise.ranking} calificaciones)
+                </Text>
+                {
+                    isLoadingCat ?
+                        <View style={{ flex: 1 }}>
+                            <ActivityIndicator color="black" size={10} />
+                        </View> :
+                        <View style={{ marginTop: 10 }}>
+                            {
+                                categories.map(category => (
+                                    <View key={category.id}>
+                                        <Text
+                                            style={{ justifyContent: 'space-around' }}
+                                        >
+                                            <Icon name={'pricetag-sharp'} size={18} color={'#4AD811'}></Icon>
+                                            {category.name}
+                                        </Text>
+                                    </View>
+
+                                ))
+                            }
+                        </View>
+                }
             </View>
             <View>
                 <TouchableOpacity style={styles.textContainer}>
-                    <Text style={{ fontSize: 16 }}>Abierto hasta las 9:30 PM </Text>
+                    <Text style={{ fontSize: 16 }}>Abierto hasta {enterprise.time_open} PM </Text>
                     <Text style={{ fontSize: 16, }}>Toca para ver los horarios, direccion y mas </Text>
                     <View style={{ left: 340, bottom: 30 }}>
                         <Icon name={'chevron-forward-outline'} size={30}></Icon>
                     </View>
                 </TouchableOpacity>
-                <View style={{ left: 60, top: 23 }}>
-                    <Icon name={'restaurant-outline'} size={22}></Icon>
+                <View style={{ left: 100, top: 28 }}>
+                    <Icon name={'cash-outline'} color={'#4AD811'} size={22}></Icon>
                 </View>
-                <Text style={{ fontSize: 20, fontWeight: '200' }}>Menu</Text>
-                <Image style={styles.imageMenu} source={require('../../assets/img/chizza.jpeg')}></Image>
-                <View style={{bottom:100}}>
-                    <Text style={{fontWeight:'900'}}>COMBO CHIZZA</Text>
-                    <Text>$6.99</Text>
-                    <Text>1 chizza + 1 papa frita pequeña + 1 gaseosa</Text>
-                </View>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Productos</Text>
+                {
+                    isLoadingPro ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                            <ActivityIndicator color="black" size={50} />
+                        </View> :
+                        products.map(product => (
+                            <TouchableOpacity
+                                key={product.id}
+                                style={{ flexDirection: 'row', marginTop: 30 }}
+                            >
+                                <View
+                                >
+                                    <Text style={{ fontWeight: '900' }}>{product.name.toUpperCase()}</Text>
+                                    <Text>${product.price}</Text>
+                                    <Text style={styles.description}>{product.description}</Text>
+                                </View>
+                                <Image style={styles.imageMenu} source={{ uri: product.img_url }}></Image>
+                            </TouchableOpacity>
+
+                        ))
+                }
+
+
 
             </View>
 
@@ -63,10 +141,16 @@ const styles = StyleSheet.create({
         top: 10
     },
     imageMenu: {
-        width: 130,
-        height: 130,
-        left: 240
+        position: 'absolute',
+        right: 20,
+        resizeMode: 'contain',
+        width: 100,
+        height: 100,
+        top: 30
+    },
+    description: {
+        width: '26%'
     }
 });
 
-export default NeogicioDetailsScreen
+export default NegocioDetailsScreen
