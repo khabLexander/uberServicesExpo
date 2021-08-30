@@ -23,7 +23,9 @@ export const EnterpriseScreen = ({ route }: any) => {
         navigation.goBack()
     }
     useEffect(() => {
+        const ac = new AbortController();
         onOpen()
+        return () => ac.abort();;
     }, [])
 
     return (

@@ -1,4 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { appAPI } from '../../api/appAPI';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { CategoryModel } from '../../models/category.model';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 import {
   StyleSheet,
   Image,
@@ -7,136 +12,29 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-const CATEGORIESMOCK = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    name: "Víveres",
-    description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    name: "Ferreteria",
-    description: '',
-    imgUrl: ''
-  },
-  {
-    id: "58694a0f-3da1-47091f-bd96-145571e29d72",
-    name: "Third Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "bd7acbea-c1b1-0946c2-aed5-3ad53abb28ba",
-    name: "First Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3ac68afc-c6059-48d3-a4f8-fbd91aa97f63",
-    name: "Second Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "58694a0f-3da81-471f-bd96-145571e29d72",
-    name: "Third Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "bd7acbea-777c1b1-46c2-aed5-3ad53abb28ba",
-    name: "First Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3ac68afc-c605-433338d3-a4f8-fbd91aa97f63",
-    name: "Second Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "58694a0f-4545453da1-471f-bd96-145571e29d72",
-    name: "Third Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "bd7ac4545bea-c1b1-46c2-aed5-3ad53abb28ba",
-    name: "First Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3ac3568afc-c605-48d3-a4f8-fbd91aa97f63",
-    name: "Second Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3458694a0f-3da1-471f-bd96-145571e29d72",
-    name: "Third Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1",
-    name: "Víveres",
-    description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f632",
-    name: "Ferreteria",
-    description: '',
-    imgUrl: ''
-  },
-  {
-    id: "58694a0f-3da1-47091f-bd96-145571e29d723",
-    name: "Third Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "bd7acbea-c1b1-0946c2-aed5-3ad53abb28ba4",
-    name: "First Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3ac68afc-c6059-48d3-a4f8-fbd91aa97f635",
-    name: "Second Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "58694a0f-3da81-471f-bd96-145571e29d726",
-    name: "Third Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "bd7acbea-777c1b1-46c2-aed5-3ad53abb28ba7",
-    name: "First Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3ac68afc-c605-433338d3-a4f8-fbd91aa97f638",
-    name: "Second Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "58694a0f-4545453da1-471f-bd96-145571e29d729",
-    name: "Third Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "bd7ac4545bea-c1b1-46c2-aed5-3ad53abb28ba0",
-    name: "First Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3ac3568afc-c605-48d3-a4f8-fbd91aa97f6311",
-    name: "Second Item", description: '',
-    imgUrl: ''
-  },
-  {
-    id: "3458694a0f-3da1-471f-bd96-145571e29d7212",
-    name: "Third Item", description: '',
-    imgUrl: ''
-  },
-];
+let categories: CategoryModel[] = [];
+interface Props extends DrawerScreenProps<any, any> { };
 
-export default function ExplorarScreen(props: any) {
+export default function ExplorarScreen(category: CategoryModel, props) {
+  const navigation = useNavigation();
+  const { authState, signIn } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    getCategories();
+  }, [])
 
-  function renderItem(category: any) {
+  const getCategories = async () => {
+    const resp = await appAPI.get('/categories', { headers: { "Authorization": `Bearer ${authState.token}` } })
+    if (resp) {
+      categories = resp.data.data;
+      setIsLoading(false)
+    }
+    else {
+      console.log('Error' + resp)
+    }
+  }
+
+  function renderItem(category: CategoryModel) {
     return (
       <View style={styles.button}>
 
@@ -144,19 +42,19 @@ export default function ExplorarScreen(props: any) {
         <TouchableOpacity
 
           onPress={() => {
-            props.navigation.navigate("LocalScreen", { category });
+            navigation.navigate('LocalScreen' as never, category as never);
           }}
         >
           <Image
             style={{ width: '100%', height: 200, }}
-            source={{ uri: "https://picsum.photos/100" }}
+            source={{ uri: category.img_url }}
           />
           <View style={{
             right: '50%',
             top: '50%',
             position: 'absolute',
           }}>
-            <Text style={{ fontSize: 20, color: 'white', }}>{category.name}</Text>
+            <Text style={{ fontSize: 20, color: 'black', fontWeight: 'bold' }}>{category.name}</Text>
           </View>
 
         </TouchableOpacity>
@@ -166,10 +64,10 @@ export default function ExplorarScreen(props: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ alignSelf: 'flex-start', fontSize: 30, }}>Todas las categorias</Text>
+      <Text style={{ alignSelf: 'flex-start', fontSize: 30, textAlign: 'center' }}>Todas las categorias</Text>
       <FlatList
         numColumns={2}
-        data={CATEGORIESMOCK}
+        data={categories}
         renderItem={({ item }) => renderItem(item)}
         keyExtractor={(item, index) => index.toString()}
       />
@@ -183,13 +81,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     // alignItems: "center",
     justifyContent: "space-between",
+    textAlign: 'center'
   },
   button: {
     flex: 1,
     flexDirection: 'column',
-    // justifyContent: "space-between",
-    // backgroundColor: "EAEAEA",
-    // padding: 2,
     margin: 10,
     borderRadius: 6,
     shadowColor: "#000",

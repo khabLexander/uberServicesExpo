@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props extends DrawerScreenProps<any, any> { };
 
-let data: EnterpriseModel[];
+let enterprises: EnterpriseModel[];
 export const InicioScreen = (props: Props) => {
 
     const navigation = useNavigation();
@@ -24,7 +24,7 @@ export const InicioScreen = (props: Props) => {
     const getEnterprises = async () => {
         const resp = await appAPI.get('/enterprises', { headers: { "Authorization": `Bearer ${authState.token}` } })
         if (resp) {
-            data = resp.data.data;
+            enterprises = resp.data.data;
             setIsLoading(false)
         }
         else {
@@ -48,7 +48,7 @@ export const InicioScreen = (props: Props) => {
                         :
                         <ScrollView>
                             {
-                                data.map(enterprise => (
+                                enterprises.map(enterprise => (
                                     <TouchableOpacity style={{ marginTop: 30, marginBottom: -35 }}
                                         onPress={() => props.navigation.navigate("EnterpriseScreen", enterprise)}
                                         key={enterprise.id}

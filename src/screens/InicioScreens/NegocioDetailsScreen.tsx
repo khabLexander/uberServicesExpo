@@ -25,10 +25,16 @@ const NegocioDetailsScreen = ({ enterprise }: Props) => {
     const [isLoadingPro, setIsLoadingPro] = useState(true);
 
     useEffect(() => {
+        const ac = new AbortController();
         getEnterpriseCagegories()
         getEnterpriseProducts()
+        return () => ac.abort();;
     }, [])
 
+    const clean = () => {
+        categories = [];
+        products = [];
+    }
     const getEnterpriseCagegories = async () => {
         const resp = await appAPI.get(`/enterprises/${enterprise.id}/categories`, { headers: { "Authorization": `Bearer ${authState.token}` } })
         if (resp) {

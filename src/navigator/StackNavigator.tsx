@@ -15,6 +15,7 @@ import LocalScreen from "../screens/ExplorarScreens/LocalScreen";
 import { FavoritesScreen } from '../screens/CuentaScreens/FavoritesScreen';
 import { EnterpriseScreen } from "@component/InicioScreens/EnterpriseScreen";
 import NegocioDetailsScreen from '../screens/InicioScreens/NegocioDetailsScreen';
+import ExplorarScreen from '../screens/ExplorarScreens/ExplorarScreen';
 
 const Stack = createStackNavigator();
 

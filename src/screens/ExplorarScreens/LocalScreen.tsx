@@ -1,185 +1,195 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, StyleSheet, FlatList, TouchableOpacity, Image, Text, Dimensions } from "react-native";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Modalize } from 'react-native-modalize';
+
 import ComidaScreen from "./ComidaScreen";
-const localesMock = [
-    {
-        nombre: 'Pizza Hut',
-        telefono: '3323243',
-        categoria: 'Viveres',
-        id: 'ASD2F',
-        address: '',
-        calification: '5',
-        country: '',
-        img_url: '',
-        ranking: '',
-        timeOpen: '',
-        timeClose: ''
-    },
-    {
-        nombre: 'Pizza Hut',
-        telefono: '3323243',
-        categoria: 'Viveres',
-        id: 'ASD33F',
-        address: '',
-        calification: '5',
-        country: '',
-        img_url: '',
-        ranking: '',
-        timeOpen: '',
-        timeClose: ''
-    },
-    {
-        nombre: 'Pizza Hut',
-        telefono: '3323243',
-        categoria: 'Viveres',
-        id: 'AS34DF',
-        address: '',
-        calification: '5',
-        country: '',
-        img_url: '',
-        ranking: '',
-        timeOpen: '',
-        timeClose: ''
-    },
-    {
-        nombre: 'Pizza Hut',
-        telefono: '3323243',
-        categoria: 'Viveres',
-        id: 'AS545F',
-        address: '',
-        calification: '5',
-        country: '',
-        img_url: '',
-        ranking: '',
-        timeOpen: '',
-        timeClose: ''
-    },
-    {
-        nombre: 'Pizza Hut',
-        telefono: '3323243',
-        categoria: 'Viveres',
-        id: 'AS5656DF',
-        address: '',
-        calification: '5',
-        country: '',
-        img_url: '',
-        ranking: '',
-        timeOpen: '',
-        timeClose: ''
-    },
-    {
-        nombre: 'Pizza Hut',
-        telefono: '3323243',
-        categoria: 'Viveres ',
-        id: '7878',
-        address: '',
-        calification: '5',
-        country: '',
-        img_url: '',
-        ranking: '',
-        timeOpen: '',
-        timeClose: ''
-    }
-];
+import { ActivityIndicator } from 'react-native-paper';
+import { DrawerScreenProps } from '@react-navigation/drawer';
+import { EnterpriseModel } from '../../models/enterprise.model';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { appAPI } from '../../api/appAPI';
+import { CategoryModel } from '../../models/category.model';
+import { stylesCuenta } from '../../themes/CuentaStyles';
+import { EnterpriseScreen } from '../InicioScreens/EnterpriseScreen';
+
+interface Props extends DrawerScreenProps<any, any> { };
+
+let enterprises: EnterpriseModel[];
 // const {width,height}=Dimensions.get('screen')
-export default function LocalScreen(props: any) {
+export default function LocalScreen({ route }: any, props: Props) {
+
+    const navigation = useNavigation();
+    const category: CategoryModel = route.params;
+    const { authState, signIn } = useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        getEnterprises();
+    }, [])
+
+    const getEnterprises = async () => {
+        const resp = await appAPI.get(`/categories/${category.id}/enterprises`, { headers: { "Authorization": `Bearer ${authState.token}` } })
+        if (resp) {
+            enterprises = resp.data.data;
+            setIsLoading(false)
+        }
+        else {
+            console.log('Error' + resp)
+        }
+    }
+
     const modalizeRef = useRef<Modalize>(null);
 
-    const onOpen = () => {
-        modalizeRef.current?.open();
-    }
 
-    const onClose = () => {
-        modalizeRef.current?.close();
-    }
-    const { category } = props.route.params;
-    function renderItem(item: any) {
-        return (
-            <View
-                style={styles.item}
-            >
-                <TouchableOpacity
-                    onPress={() => {
-                        props.navigation.navigate('ComidaScreen', { local: item })
-                    }}
-                >
-                    <Image
-                        style={{ width: '100%', height: 250, }}
-                        source={{ uri: "https://picsum.photos/200/100" }}
-                    />
-                    <View style={{
-                        right: 20,
-                        top: 10,
-                        position: 'absolute'
-                    }}>
-                        <Icon name={'heart-outline'} size={30} color="white" />
-                    </View>
-                    <Text style={styles.title}>{item.nombre}</Text>
-                    <Text style={{ fontSize: 15 }}>
-                        <Icon name={'star'} size={15} color="#000000" />
-                        calificacion: {item.calification}
-                    </Text>
-                </TouchableOpacity>
-
-            </View>
-        );
-    }
     return (
-        <View style={styles.container}>
-            <View style={styles.bannerTop}>
+        <>
+            <View style={stylesCuenta.bannerTop}>
                 <TouchableOpacity
-                    onPress={() => props.navigation.goBack()}
+                    onPress={() => navigation.goBack()}
                 >
-                    <Icon style={styles.iconBack} name={'arrow-back'} size={25} color="#000000" />
+                    <Icon style={stylesCuenta.iconBack} name={'arrow-back'} size={25} color="#000000" />
                 </TouchableOpacity>
-                <Text style={styles.title}>
-                    { }
-                </Text>
+                <Text style={stylesCuenta.covidTitle}>
+                    Empresas de  {category.name}                </Text>
             </View>
-            <FlatList
-                data={localesMock}
-                renderItem={({ item }) => renderItem(item)}
-                keyExtractor={(item, index) => index.toString()}
-            />
 
-        </View>
-    );
+
+            <>
+                {
+                    isLoading ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                            <ActivityIndicator color="black" size={100} />
+                        </View>
+                        :
+                        <ScrollView>
+                            {
+                                enterprises.map(enterprise => (
+                                    <TouchableOpacity style={{ marginTop: 30, marginBottom: -35 }}
+                                        onPress={() => navigation.navigate('EnterpriseScreen' as never, enterprise as never)}
+                                        key={enterprise.id}
+                                    >
+                                        <View style={styles.cardContainer}>
+                                            <Image source={{ uri: enterprise.img_url }} style={styles.imagenCard}></Image>
+                                            <View style={styles.textCard}>
+                                                <Text style={styles.title}>{enterprise.name}</Text>
+                                            </View>
+                                            <View style={styles.iconTag}>
+                                                <Icon name={'pricetag-sharp'} size={20} color={'#4AD811'}></Icon>
+                                                <Text style={{ fontWeight: 'bold' }}> Costo de envio</Text>
+                                                <Text > ${(Math.random() * (1.5 - 0.5) + 0.5).toFixed(2)}</Text>
+                                                <Text style={styles.calification}> {enterprise.calification}.{(Math.random() * (9 - 1 + 1) + 1).toFixed(0)} </Text>
+
+                                            </View>
+                                            <View>
+                                                <Text style={styles.address}> {enterprise.address}</Text>
+                                                <Text style={styles.country}> {enterprise.country}</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+
+                                ))
+                            }
+
+                        </ScrollView>
+                }
+            </>
+        </>
+
+    )
 };
 const styles = StyleSheet.create({
-    container: {
+
+    inicioContainer: {
         flex: 1,
-        backgroundColor: "white",
-        // alignItems: "center",
-        // justifyContent: "center",
-        // margin: 10
+        backgroundColor: 'white'
     },
-    bannerTop: {
-        width: '100%',
-        height: 56,
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#ab9e96',
-        shadowColor: "#94867e",
+
+
+    titulo: {
+        fontSize: 20,
+        fontWeight: 'bold',
+
+    },
+    tituloContainer: {
+        top: 20,
+        right: -100,
+    },
+    cardContainer: {
+        marginHorizontal: 35,
+        backgroundColor: 'white',
+        height: 260,
+        width: 400,
+        marginBottom: 0,
+        marginTop: 40,
+        borderRadius: 10,
+        left: -30,
+        paddingHorizontal: 100,
+        paddingBottom: 200,
+        // borderWidth: 0.5,
+        shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 7,
         },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.00,
-        elevation: 2,
-        flexDirection: 'row',
-        alignItems: "center",
+        shadowOpacity: 0.43,
+        shadowRadius: 9.51,
+
+        elevation: 15,
     },
-    iconBack: {
-        marginLeft: 15
+    imagenCard: {
+        marginTop: 20,
+        resizeMode: 'contain',
+        width: 395,
+        height: 100,
+        right: 100,
+        bottom: 10
+
+    },
+    iconCard: {
+        left: 250,
+        top: 10,
     },
     title: {
         fontSize: 20,
-        fontWeight: 'bold'
+
     },
-    item: {
-        margin: 10,
-        position: "relative"
+    closeIcon: {
+
+        left: 350,
+        top: 20,
     },
+    textCard: {
+        marginTop: 40,
+        right: 95,
+        top: 5,
+
+    },
+    iconTag: {
+        top: 10,
+        right: 100,
+        flexDirection: 'row',
+        width: 500
+    },
+    calification: {
+        position: 'absolute',
+        left: 350,
+        borderRadius: 100,
+        width: 30,
+        height: 30,
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontSize: 15,
+        backgroundColor: '#b6b6b8'
+    },
+    address: {
+        marginTop: 10,
+        position: 'absolute',
+        left: -80
+    },
+    country: {
+        position: 'absolute',
+        left: 200
+    }
 });
