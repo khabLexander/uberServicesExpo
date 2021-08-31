@@ -3,6 +3,8 @@ import { appAPI } from '../../api/appAPI';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { CategoryModel } from '../../models/category.model';
+import { CarritoComponent } from '../../components/CarritoComponent';
+
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import {
   StyleSheet,
@@ -71,6 +73,8 @@ export default function ExplorarScreen(category: CategoryModel, props) {
         renderItem={({ item }) => renderItem(item)}
         keyExtractor={(item, index) => index.toString()}
       />
+      {authState.products.length > 0 && <CarritoComponent />}
+
     </View>
   );
 }

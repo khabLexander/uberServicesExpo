@@ -6,6 +6,7 @@ import { createContext } from "react";
 import { UserModel } from "src/models/user.model";
 import { authReducer } from "./AuthReducer";
 // import { AuthAction, authReducer } from './AuthReducer';
+import { ProductModel } from '../../models/product.model';
 
 
 
@@ -24,7 +25,9 @@ export const AuthInitialState: UserModel = {
   //este token quemado para evitar logearme a cada rato
   token: '60|oMiRrJQd8vJHyq4wcStzLYfFGHNz8LONRvzAQDYL',
   clientPaymentMethod: '',
-  clientId: 0
+  clientId: 0,
+  products: [],
+  total: 0
 };
 
 //Encapsular  en el estado inicial
@@ -37,6 +40,7 @@ export interface AuthContextProps {
   signIn: (user: UserModel) => void;
   logOut: () => void;
   pagoActual: (metodoPago: string) => void;
+  addCarrito: (user: UserModel) => void;
 }
 
 //Mi contexto creado Mi contexto creasdo Mi contexto creado
@@ -59,6 +63,9 @@ export const AuthProvider = ({ children }: any) => {
   const pagoActual = (metodoPago: string) => {
     dispatch({ type: "pagoActual", payLoad: metodoPago });
   };
+  const addCarrito = (user: UserModel) => {
+    dispatch({ type: "addCarrito", payLoad: user });
+  };
 
   return (
     <AuthContext.Provider
@@ -67,6 +74,7 @@ export const AuthProvider = ({ children }: any) => {
         signIn,
         logOut,
         pagoActual,
+        addCarrito
       }}
     >
       {children}

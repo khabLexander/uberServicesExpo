@@ -15,7 +15,8 @@ import LocalScreen from "../screens/ExplorarScreens/LocalScreen";
 import { FavoritesScreen } from '../screens/CuentaScreens/FavoritesScreen';
 import { EnterpriseScreen } from "@component/InicioScreens/EnterpriseScreen";
 import NegocioDetailsScreen from '../screens/InicioScreens/NegocioDetailsScreen';
-import ExplorarScreen from '../screens/ExplorarScreens/ExplorarScreen';
+import { OrderScreen } from "@component/ComprarScreens/OrderScreen";
+import { BuyScreen } from '../screens/ComprarScreens/BuyScreen';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,11 @@ export const StackNavigator = () => {
       <Stack.Screen name="LocalScreen" component={LocalScreen} />
       <Stack.Screen name="ComidaScreen" component={ComidaScreen} />
       <Stack.Screen name="DetallesScreen" component={DetallesScreen} />
+      {/*Derivados de Comprar*/}
+      <Stack.Screen name="OrderScreen" component={OrderScreen} />
+      <Stack.Screen name="BuyScreen" component={BuyScreen} />
+
+
     </Stack.Navigator>
   );
 };

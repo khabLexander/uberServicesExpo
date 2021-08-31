@@ -1,10 +1,21 @@
-import React from 'react'
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { appAPI } from '../../api/appAPI';
+import { CarritoComponent } from '../../components/CarritoComponent';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { ActivityIndicator } from 'react-native-paper';
+import React, { useContext, useEffect, useState } from 'react'
 
 export const PedidosScreen = () => {
+    const { authState, signIn } = useContext(AuthContext);
+
     return (
         <View>
             <Text>Pedidos Login AQUI TRABAJA BRYAN</Text>
+            <View style={{ bottom: -680 }}>
+                {authState.products.length > 0 && <CarritoComponent />}
+            </View>
+
         </View>
     )
 }

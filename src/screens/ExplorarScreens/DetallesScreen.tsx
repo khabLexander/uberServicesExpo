@@ -1,28 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Image, TextInput, TouchableOpacity, StyleSheet, Button, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
-export default function DetallesScreen(props: any) {
+import { ProductModel } from '../../models/product.model';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { UserModel } from '../../models/user.model';
+import { stylesCuenta } from '../../themes/CuentaStyles';
+
+
+let userProducts: UserModel = { total: 0 };
+let products: ProductModel[] = [];
+export default function DetallesScreen({ route }: any, props: any) {
+
+    const product: ProductModel = route.params;
+    const navigation = useNavigation();
     const [item, setItem] = useState<any>({})
     const [total, setTotal] = useState(0);
     const [cantidad, setCantidad] = useState<number>(1);
-    const { product } = props.route.params;
+    const [productosComprados, setProductosComprados] = useState<ProductModel[]>([])
+    const { authState, addCarrito } = useContext(AuthContext);
+
     useEffect(() => {
         calcularTotal();
     }, [cantidad]);
-    useEffect(() => {
-        setItem(props.route.params.item)
-    }, [])
+
     const sumar = () => {
-        // let nuevaCantidad = parseInt(cantidad + 1);
-        // setCantidad(nuevaCantidad);
+        setCantidad(cantidad + 1)
     };
     const restar = () => {
-        if (cantidad > 1) {
-            // let nuevaCantidad = parseInt(cantidad - 1);
-            // setCantidad(nuevaCantidad);
+        if (cantidad <= 1) {
+            setCantidad(0)
+        } else {
+            setCantidad(cantidad - 1)
         }
     };
+    const agregarProductoCarrito = (product: ProductModel, cantidad) => {
+        for (let i = 1; i <= cantidad; i++) {
+            products.push(product)
+        }
+        userProducts.products = products
+        userProducts.total += parseInt(product.price) * cantidad
+        addCarrito(userProducts)
+        console.log(authState.products)
+        console.log(authState.total)
+        navigation.goBack();
+    }
     const calcularTotal = () => {
         const nuevoTotal = item.precio * cantidad;
         setTotal(nuevoTotal);
@@ -35,10 +58,20 @@ export default function DetallesScreen(props: any) {
     };
     return (
         <ScrollView style={{ backgroundColor: 'white' }}>
+            <View style={stylesCuenta.bannerTop}>
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                >
+                    <Icon style={stylesCuenta.iconBack} name={'arrow-back'} size={25} color="#000000" />
+                </TouchableOpacity>
+                <Text style={stylesCuenta.covidTitle}>
+                    {product.name}
+                </Text>
+            </View>
             <View style={styles.container}>
                 <Image
-                    style={{ width: '100%', height: 250 }}
-                    source={{ uri: "https://picsum.photos/200/100" }}
+                    style={{ width: '100%', height: 250, marginTop: 50 }}
+                    source={{ uri: product.img_url }}
                 />
                 <View style={{
                     left: 20,
@@ -48,10 +81,10 @@ export default function DetallesScreen(props: any) {
                     <Icon onPress={() => props.navigation.goBack()} name={'arrow-back-circle'} size={35} color="white" />
                 </View>
                 <Text style={{ fontSize: 30, fontWeight: 'bold' }}>
-                    {product.nombre}
+                    {product.name}
                 </Text>
                 <Text style={{ fontSize: 15, color: '#969292', marginBottom: 10, marginTop: 5 }}>
-                    {product.descripcion}
+                    {product.description}
                 </Text>
                 <View style={styles.separator} />
                 <View style={{ flex: 1, flexDirection: 'row', marginVertical: 10 }}>
@@ -65,16 +98,9 @@ export default function DetallesScreen(props: any) {
                 </View>
                 <TouchableOpacity
                     onPress={() => {
-                        // const orden = {
-                        //     ...detallesplato,
-                        //     subtotal: total,
-                        //     cantidad,
-                        // };
-
-                        // postOrden(orden);
-                        props.navigation.navigate("ComidaScreen", { item, cantidad, total });
+                        agregarProductoCarrito(product, cantidad)
                     }}
-                    style={{ backgroundColor: 'black', height: 70, width: '90%', borderRadius:5  }}
+                    style={{ backgroundColor: 'black', height: 70, width: '90%', borderRadius: 5 }}
                 >
                     <Text style={{ color: 'white', textAlign: 'center', fontSize: 25, marginTop: 15 }}>Anadir al carrito</Text>
                 </TouchableOpacity>
@@ -83,31 +109,6 @@ export default function DetallesScreen(props: any) {
     );
 };
 const styles = StyleSheet.create({
-
-    button: {
-        // borderRadius: 100,
-        // backgroundColor: 'gray',
-        // color: 'black',
-        // fontSize: 20,
-        // width: 30,
-        // textAlign: 'center'
-    },
-    bannerTop: {
-        // width: '100%',
-        // height: 56,
-        // borderBottomWidth: 0.5,
-        // borderBottomColor: '#ab9e96',
-        // shadowColor: "#94867e",
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 1,
-        // },
-        // shadowOpacity: 0.18,
-        // shadowRadius: 1.00,
-        // elevation: 2,
-        // flexDirection: 'row',
-        // alignItems: "center",
-    },
     iconBack: {
         marginLeft: 15,
         marginTop: 10,

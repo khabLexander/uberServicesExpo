@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext/AuthContext";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import { appAPI } from '../../api/appAPI';
+import { CarritoComponent } from '../../components/CarritoComponent';
 
 
 export const CuentaScreen = (props: any) => {
@@ -24,7 +25,7 @@ export const CuentaScreen = (props: any) => {
   }
 
   return (
-    <View>
+    <View style={{ flex: 1, height: '100%' }}>
       <View style={stylesCuenta.bannerTop}>
         <View style={stylesCuenta.imgUser}>
           <Icon
@@ -111,14 +112,10 @@ export const CuentaScreen = (props: any) => {
           <Text style={stylesCuenta.textOptions}>Configuración</Text>
         </TouchableOpacity>
       </View>
-      {/* <TouchableOpacity
-                    style={{
-                        backgroundColor:'#ffffff'
-                        }}
-                    onPress={()=> navigation.navigate('LoginScreen')}
-                >
-                <Text style={stylesCuenta.botonGrandeTexto}> CERRAR SESIÓN </Text>
-            </TouchableOpacity>         */}
+      <View style={{ bottom: -285 }}>
+        {authState.products.length > 0 && <CarritoComponent />}
+      </View>
+
     </View>
   );
 };

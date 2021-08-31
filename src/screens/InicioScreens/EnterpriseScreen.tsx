@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { stylesCuenta } from '../../themes/CuentaStyles';
@@ -7,12 +7,15 @@ import { EnterpriseModel } from '../../models/enterprise.model';
 import { Modalize } from 'react-native-modalize';
 import NegocioDetailsScreen from './NegocioDetailsScreen';
 import { TapGestureHandler } from 'react-native-gesture-handler';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { CarritoComponent } from '../../components/CarritoComponent';
 
 export const EnterpriseScreen = ({ route }: any) => {
 
     const enterprise: EnterpriseModel = route.params;
     const navigation = useNavigation();
     const modalizeRef = useRef<Modalize>(null);
+    const { authState, signIn } = useContext(AuthContext);
 
     const onOpen = () => {
         modalizeRef.current?.open();
@@ -56,7 +59,9 @@ export const EnterpriseScreen = ({ route }: any) => {
                     </View>
                 </Modalize>
             </View>
-
+            <View style={{ top: 245 }}>
+                {authState.products.length > 0 && <CarritoComponent />}
+            </View>
         </>
     )
 }

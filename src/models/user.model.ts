@@ -1,4 +1,5 @@
 import { CatalogueModel } from './catalogue.model';
+import { ProductModel } from './product.model';
 
 export interface UserModel {
   id?: number;
@@ -19,4 +20,6 @@ export interface UserModel {
   token?: string;
   clientPaymentMethod?: string;
   clientId?: number;
+  products?: ProductModel[];
+  total?: number
 }

@@ -1,4 +1,5 @@
 import { UserModel } from '../../models/user.model';
+import { ProductModel } from '../../models/product.model';
 
 export type LoginUser = {
   userName: string;
@@ -8,7 +9,8 @@ export type LoginUser = {
 export type AuthAction =
   | { type: "signIn"; payLoad: UserModel }
   | { type: "logOut" }
-  | { type: "pagoActual"; payLoad: string };
+  | { type: "pagoActual"; payLoad: string }
+  | { type: "addCarrito"; payLoad: UserModel }
 
 export const authReducer = (initialState: UserModel, action: AuthAction): UserModel => {
   switch (action.type) {
@@ -32,6 +34,13 @@ export const authReducer = (initialState: UserModel, action: AuthAction): UserMo
         isLoggedIn: false,
         username: undefined,
       };
+    }
+    case "addCarrito": {
+      return {
+        ...initialState,
+        products: action.payLoad.products,
+        total: action.payLoad.total
+      }
     }
     // case "pagoActual": {
     //   return {

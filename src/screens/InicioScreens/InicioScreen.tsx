@@ -7,6 +7,7 @@ import { appAPI } from '../../api/appAPI';
 import { EnterpriseModel } from '../../models/enterprise.model';
 import { ActivityIndicator } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { CarritoComponent } from '../../components/CarritoComponent';
 
 interface Props extends DrawerScreenProps<any, any> { };
 
@@ -78,6 +79,7 @@ export const InicioScreen = (props: Props) => {
                         </ScrollView>
                 }
             </>
+            {authState.products.length > 0 && <CarritoComponent />}
         </>
 
     )

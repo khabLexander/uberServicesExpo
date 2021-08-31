@@ -108,6 +108,7 @@ const NegocioDetailsScreen = ({ enterprise }: Props) => {
                             <TouchableOpacity
                                 key={product.id}
                                 style={{ flexDirection: 'row', marginTop: 30 }}
+                                onPress={() => navigation.navigate('DetallesScreen' as never, product as never)}
                             >
                                 <View
                                 >

@@ -3,12 +3,13 @@ import { StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, ScrollView
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Modalize } from 'react-native-modalize';
 const { width, height } = Dimensions.get('screen')
+
 function CarritoModal() {
     const modalizeRef = useRef<Modalize>(null);
     const onOpen = () => {
         modalizeRef.current?.open();
     }
-    const renderItem=(producto)=>{
+    const renderItem = (producto) => {
         return (
             <View style={{
                 flex: 1, flexDirection: 'row', marginHorizontal: 10,
@@ -68,43 +69,19 @@ function CarritoModal() {
                 }
                 flatListProps={
                     {
-                        data:[
-                            { cantidad: 1, nombre: 'Pizza Familiar', precio: 22,id:'1' },
-                            { cantidad: 1, nombre: 'Pizza Mediana', precio: 22,id:'2' },
-                            { cantidad: 1, nombre: 'Pizza Lovers', precio: 22,id:'3' },
-                            { cantidad: 1, nombre: 'Pizza cilindrica', precio: 22,id:'4' },
+                        data: [
+                            { cantidad: 1, nombre: 'Pizza Familiar', precio: 22, id: '1' },
+                            { cantidad: 1, nombre: 'Pizza Mediana', precio: 22, id: '2' },
+                            { cantidad: 1, nombre: 'Pizza Lovers', precio: 22, id: '3' },
+                            { cantidad: 1, nombre: 'Pizza cilindrica', precio: 22, id: '4' },
                         ],
-                        renderItem:renderItem,
+                        renderItem: renderItem,
                         keyExtractor: item => item.id
                     }
                 }
 
             >
-            {/* <View > */}
-
-                {/* <View style={{
-                    flex: 1, flexDirection: 'row', marginHorizontal: 10,
-                    marginVertical: 15, justifyContent: 'space-between', borderBottomWidth: 2, borderStyle: 'solid', borderBottomColor: 'lightgray', height: 50, paddingVertical: 10
-                }}>
-                    <View style={{ backgroundColor: 'lightgray', width: 20, height: 20, }}>
-                        <Text style={{ margin: 'auto', fontSize: 13 }}>
-                            1
-                        </Text>
-                    </View>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Pizza Familiar</Text>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
-                        <Icon name={'pricetag-sharp'} size={20} color={'#4AD811'} />
-                        $22
-                    </Text>
-                </View> */}
-
-                {/* <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginHorizontal: 10 }}>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Subtotal</Text>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>$22</Text>
-                </View>
-            </View> */}
-
-        </Modalize>
+            </Modalize>
         </>
     )
 
