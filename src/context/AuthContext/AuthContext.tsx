@@ -14,7 +14,7 @@ import { ProductModel } from '../../models/product.model';
 //atributos
 //comaprtidos en toda la app
 export const AuthInitialState: UserModel = {
-  id: 0,
+  id: 7,
   avatar: 'algunaimagen',
   username: '12121212',
   lastname: 'alimaña',
@@ -23,9 +23,9 @@ export const AuthInitialState: UserModel = {
   birthdate: 'null',
   isLoggedIn: false,
   //este token quemado para evitar logearme a cada rato
-  token: '60|oMiRrJQd8vJHyq4wcStzLYfFGHNz8LONRvzAQDYL',
+  token: '1|7gtFj6nLywo3a6k4VxFiAU3E8wziBlkDvuNDz1sm',
   clientPaymentMethod: '',
-  clientId: 0,
+  clientId: 21,
   products: [],
   total: 0
 };

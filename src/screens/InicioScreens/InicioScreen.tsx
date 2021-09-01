@@ -17,6 +17,7 @@ export const InicioScreen = (props: Props) => {
     const navigation = useNavigation();
     const { authState, signIn } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingDelivery, setIsLoadingDelivery] = useState(true);
 
     useEffect(() => {
         getEnterprises();
@@ -75,7 +76,6 @@ export const InicioScreen = (props: Props) => {
 
                                 ))
                             }
-
                         </ScrollView>
                 }
             </>

@@ -32,17 +32,18 @@ export const Login = (props: any) => {
     }
   }
   const saveToken = async (user: UserModel, token: string) => {
+    console.log(user)
     const response = await appAPI.get(`/clients/${user.id}`, { headers: { "Authorization": `Bearer ${token}` } })
     if (response) {
-      const clientId = response.data.data[0].user_id
-      const clientPaymentMethod = response.data.data[0].payment_method
-      const userLoged = {
+      const clientId = await response.data.data[0].user_id
+      const clientPaymentMethod = await response.data.data[0].payment_method
+      const userLoged = await {
         ...user,
         token,
         clientId,
         clientPaymentMethod
       }
-      console.log(userLoged)
+      await console.log(userLoged)
       return userLoged;
     }
     else {

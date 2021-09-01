@@ -151,7 +151,6 @@ export const stylesCuenta = StyleSheet.create({
     imageFavorites: {
         marginTop: 8,
         borderRadius: 2,
-        borderStyle: 'solid',
         resizeMode: 'stretch',
         height: '80%',
         width: '25%'
@@ -165,8 +164,8 @@ export const stylesCuenta = StyleSheet.create({
         flexDirection: 'column'
     },
     descriptionFavorite: {
+        width: '80%',
         fontSize: 10,
-        alignSelf: 'stretch',
         flexDirection: 'column'
     },
     iconDelete: {

@@ -11,8 +11,8 @@ export const PedidosScreen = () => {
 
     return (
         <View>
-            <Text>Pedidos Login AQUI TRABAJA BRYAN</Text>
-            <View style={{ bottom: -680 }}>
+            <Text>Proximamente</Text>
+            <View style={{ bottom: -588 }}>
                 {authState.products.length > 0 && <CarritoComponent />}
             </View>
 

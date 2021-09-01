@@ -9,48 +9,48 @@ import {
   ToastAndroid
 } from "react-native";
 
-export const Register = (props:any) => {
-    const datosUsuario = {
-        username: "",
-        birthdate: "",
-        name: "",
-        lastname: "",
-        email: "",
-        password: ""
-    };
-    
-    const [user, setState] = useState(datosUsuario);
-    const [bto, setBto] = useState(false);
+export const Register = (props: any) => {
+  const datosUsuario = {
+    username: "",
+    birthdate: "",
+    name: "",
+    lastname: "",
+    email: "",
+    password: ""
+  };
 
-    const handleChangeText = (value: string, name: string) => {
-      setState({ ...user, [name]: value });
-      console.log(user)
-    };
-    
-    const saveNewUser = async () => {
-      if (user.name === "" || user.email === "") {
-        alert("El nombre y el email son obligatorios.");
+  const [user, setState] = useState(datosUsuario);
+  const [bto, setBto] = useState(false);
+
+  const handleChangeText = (value: string, name: string) => {
+    setState({ ...user, [name]: value });
+    console.log(user)
+  };
+
+  const saveNewUser = async () => {
+    if (user.name === "" || user.email === "") {
+      alert("El nombre y el email son obligatorios.");
     } else {
       try {
-          ToastAndroid.showWithGravityAndOffset(
-            "Usuario creado correctamente",
-            ToastAndroid.LONG,
-            ToastAndroid.TOP,
-            25,
-            1350)
-            setState(datosUsuario)
-            setBto(true)
-            props.navigation.navigate("Login")
-          } catch (error) {
-            console.log(error)
-        }
+        ToastAndroid.showWithGravityAndOffset(
+          "Usuario creado correctamente",
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          1350)
+        setState(datosUsuario)
+        setBto(true)
+        props.navigation.navigate("Login")
+      } catch (error) {
+        console.log(error)
       }
-    };
+    }
+  };
 
-    return (
-      <ScrollView style={styles.container}>
-      <View style ={styles.title}>
-      <Text style ={{fontSize: 20}}>Registrarse</Text>
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.title}>
+        <Text style={{ fontSize: 20 }}>Registrarse</Text>
       </View>
       <View style={styles.inputGroup}>
         <TextInput
@@ -99,11 +99,14 @@ export const Register = (props:any) => {
       <View>
         <Button title="Registrarse" onPress={() => saveNewUser()} />
       </View>
-      { bto === true ? <View style={styles.footer}>
+      {bto === true ? <View style={styles.footer}>
         <Button title="Loguearse" onPress={() => props.navigation.navigate("Login")} />
-      </View> : <Text></Text> }
+      </View> : <Text></Text>}
+      <View>
+        <Button title="Login" onPress={() => props.navigation.navigate("Login")} />
+      </View>
     </ScrollView>
-    )
+  )
 }
 
 const styles = StyleSheet.create({

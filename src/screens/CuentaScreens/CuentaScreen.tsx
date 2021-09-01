@@ -109,10 +109,10 @@ export const CuentaScreen = (props: any) => {
             size={25}
             color="#000000"
           />
-          <Text style={stylesCuenta.textOptions}>Configuración</Text>
+          <Text style={stylesCuenta.textOptions}>Cerrar Sesión</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ bottom: -285 }}>
+      <View style={{ bottom: -190 }}>
         {authState.products.length > 0 && <CarritoComponent />}
       </View>
 

@@ -17,13 +17,14 @@ import { EnterpriseScreen } from "@component/InicioScreens/EnterpriseScreen";
 import NegocioDetailsScreen from '../screens/InicioScreens/NegocioDetailsScreen';
 import { OrderScreen } from "@component/ComprarScreens/OrderScreen";
 import { BuyScreen } from '../screens/ComprarScreens/BuyScreen';
+import { DetalleEntrega } from '../screens/ComprarScreens/DetalleEntrega';
 
 const Stack = createStackNavigator();
 
 export const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="BottomTabs"
+      initialRouteName="Register"
       screenOptions={{
         headerShown: false,
       }}
@@ -58,6 +59,7 @@ export const StackNavigator = () => {
       {/*Derivados de Comprar*/}
       <Stack.Screen name="OrderScreen" component={OrderScreen} />
       <Stack.Screen name="BuyScreen" component={BuyScreen} />
+      <Stack.Screen name="DetalleEntrega" component={DetalleEntrega} />
 
 
     </Stack.Navigator>

@@ -13,16 +13,16 @@ export const CarritoComponent = () => {
         navigation.navigate('OrderScreen' as never)
     }
     return (
-        <View >
-            <TouchableOpacity
-                onPress={onOpen}
-                style={{ backgroundColor: 'black', height: 70, width: '90%', borderRadius: 5, margin: 'auto', }}
-            >
-                <Text style={{ color: 'white', textAlign: 'center', fontSize: 25, marginTop: 15 }}>
-                    ({authState.products.length}) Ver carrito
-                </Text>
-            </TouchableOpacity>
+        <TouchableOpacity
+            onPress={onOpen}
+            style={{
+                backgroundColor: 'black', height: 70, width: '90%', borderRadius: 5, margin: 'auto', left: '5%'
+            }}
+        >
+            <Text style={{ color: 'white', textAlign: 'center', fontSize: 25, marginTop: 15 }}>
+                ({authState.products.length}) Ver carrito
+            </Text>
+        </TouchableOpacity>
 
-        </View>
     )
 }
